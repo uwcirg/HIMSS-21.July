@@ -1,0 +1,58 @@
+---
+version: "3.8"
+services:
+  # See adjacent `secrets` file for authentication details
+  #
+  # https://github.com/nextgenhealthcare/connect-docker#using-docker-compose
+  # https://www.nextgen.com/products-and-services/nextgen-connect-integration-engine-downloads
+  # https://www.nextgen.com/-/media/files/nextgen-connect/nextgen-connect-310-user-guide.pdf
+  #
+  # ssh -4 -L 127.0.0.1:8443:127.0.0.1:58443 \
+  #   ${UWNetID}@iodine.cirg.washington.edu
+  #
+  # Then open https://127.0.0.1:8443 in your browser to manage
+  #
+  # Click on "Launch Mirth Connect Administrator"
+  ngconnect:
+    image: nextgenhealthcare/connect:3.10.1
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:58080:8080"
+      - "127.0.0.1:58443:8443"
+    environment:
+      DATABASE:                   'postgres'
+      DATABASE_URL:               'jdbc:postgresql://db:5432/mirthdb'
+      DATABASE_MAX_CONNECTIONS:   20
+      DATABASE_USERNAME:          'mirthdb'
+      DATABASE_PASSWORD:          'mirthdb'
+      KEYSTORE_STOREPASS:         'docker_storepass'
+      KEYSTORE_KEYPASS:           'docker_keypass'
+      VMOPTIONS:                  '-Xmx512m'
+      _MP_HTTPS_SERVER_PROTOCOLS: 'TLSv1.3,TLSv1.2'
+      TZ:                         'America/New_York'
+    secrets:
+      - mcserver_vmoptions
+    volumes:
+      - appdata:/opt/connect/appdata
+      - custom-extensions:/opt/connect/custom-extensions
+    depends_on:
+      - db
+  db:
+    image: postgres:12.6
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:        'mirthdb'
+      POSTGRES_USER:      'mirthdb'
+      POSTGRES_PASSWORD:  'mirthdb'
+      TZ:                 'America/New_York'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+    appdata: {}
+    custom-extensions: {}
+    postgres-data: {}
+
+secrets:
+  mcserver_vmoptions:
+    file: /srv/www/connectathon.cirg.washington.edu/nextgen-connect/mcserver_vmoptions
