@@ -19,6 +19,8 @@ services:
     ports:
       - "127.0.0.1:58080:8080"
       - "127.0.0.1:58443:8443"
+      - "6661:6661"
+      - "127.0.0.1:8888:8888"
     environment:
       DATABASE:                   'postgres'
       DATABASE_URL:               'jdbc:postgresql://db:5432/mirthdb'
@@ -35,6 +37,7 @@ services:
     volumes:
       - appdata:/opt/connect/appdata
       - custom-extensions:/opt/connect/custom-extensions
+      - /opt/adt/received:/opt/adt/received
     depends_on:
       - db
   db:
