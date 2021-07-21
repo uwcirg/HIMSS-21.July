@@ -14,7 +14,7 @@ services:
   #
   # Click on "Launch Mirth Connect Administrator"
   ngconnect:
-    image: nextgenhealthcare/connect:3.10.1
+    image: nextgenhealthcare/connect:3.11
     restart: unless-stopped
     ports:
       - "127.0.0.1:58080:8080"
@@ -36,8 +36,8 @@ services:
       - mcserver_vmoptions
     volumes:
       - appdata:/opt/connect/appdata
-      - custom-extensions:/opt/connect/custom-extensions
-      - /opt/adt/received:/opt/adt/received
+      - ./opt/connect/custom-extensions:/opt/connect/custom-extensions
+      - ./opt/adt/received:/opt/adt/received
     depends_on:
       - db
   db:
@@ -58,4 +58,4 @@ volumes:
 
 secrets:
   mcserver_vmoptions:
-    file: /srv/www/connectathon.cirg.washington.edu/nextgen-connect/mcserver_vmoptions
+    file: ./mcserver_vmoptions
