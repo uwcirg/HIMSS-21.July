@@ -38,6 +38,8 @@ services:
       - appdata:/opt/connect/appdata
       - ./opt/connect/custom-extensions:/opt/connect/custom-extensions
       - ./opt/adt/received:/opt/adt/received
+      - ./opt/aims/output:/opt/aims/output
+      - ./opt/aims/received:/opt/aims/received
     depends_on:
       - db
   db:
