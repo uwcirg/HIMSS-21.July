@@ -1,8 +1,8 @@
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from db import db
-import api
+from backend.backend_app.db import db
+from backend.backend_app import api
 
 
 def create_app(testing=False, cli=False):
