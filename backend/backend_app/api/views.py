@@ -9,6 +9,6 @@ def root():
 
 @base_blueprint.route('/init-db')
 def init_db():
-    from backend_app import db
+    from backend_app.db import db
     db.create_all()
     return {'ok': True}
