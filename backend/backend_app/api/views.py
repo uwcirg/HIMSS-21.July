@@ -12,6 +12,7 @@ def root():
 
 @base_blueprint.route('/init-db')
 def init_db():
+    db.drop_all()
     db.create_all()
     return {'ok': True}
 
