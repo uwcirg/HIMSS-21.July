@@ -3,6 +3,7 @@ from ..db import db
 
 
 class Patient(db.Model):
+    __tablename__ = 'patients'
     id = db.Column(db.Integer, primary_key=True)
     simple_xml = db.Column(db.Text, nullable=True)
     eicr_html = db.Column(db.Text, nullable=True)
