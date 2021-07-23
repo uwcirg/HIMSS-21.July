@@ -24,13 +24,13 @@ def dummy():
 
     db.session.add(p)
     db.session.commit()
-    return {'added': p}
+    return {'added': p.id}
 
 
 @base_blueprint.route('/Patient')
 def patient_list():
     patients = []
-    for p in Patient.query():
+    for p in Patient.query.all():
         patients.append({
             'id': p.id,
             'xml': p.simple_xml
