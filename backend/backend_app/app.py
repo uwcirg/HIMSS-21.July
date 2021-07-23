@@ -1,9 +1,8 @@
 from flask import Flask
-from logging import config as logging_config
-import os
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from backend_app import api
+from db import db
+import api
 
 
 def create_app(testing=False, cli=False):
@@ -12,6 +11,7 @@ def create_app(testing=False, cli=False):
     app = Flask('backend_app')
     app.config.from_object('backend_app.config')
     app.config['TESTING'] = testing
+    db.init_app(app)
 
     register_blueprints(app)
     configure_proxy(app)
