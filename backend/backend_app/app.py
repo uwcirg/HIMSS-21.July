@@ -1,8 +1,8 @@
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from backend_app.db import db
-from backend_app import api
+from .db import db
+from .api.views import base_blueprint
 
 
 def create_app(testing=False, cli=False):
@@ -22,7 +22,7 @@ def create_app(testing=False, cli=False):
 def register_blueprints(app):
     """register all blueprints for application
     """
-    app.register_blueprint(api.views.base_blueprint)
+    app.register_blueprint(base_blueprint)
 
 
 def configure_proxy(app):

@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from backend.backend_app.db import db
+from ..db import db
 
 
 class Patient(db.Model):
