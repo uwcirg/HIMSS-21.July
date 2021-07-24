@@ -17,18 +17,16 @@ def init_db():
     return {'ok': True}
 
 
-@base_blueprint.route('/dummy')
-def dummy():
-    p = Patient()
-    p.simple_xml = "<xml><not>really</not></xml>"
-
-    db.session.add(p)
-    db.session.commit()
-    return {'added': p.id}
-
-
 @base_blueprint.route('/Patient')
 def patient_list():
+    patients = []
+    for p in Patient.query.all():
+        patients.append(p.json())
+    return {'patients': patients}
+
+
+@base_blueprint.route('/Patient/raw')
+def patient_raw_list():
     patients = []
     for p in Patient.query.all():
         patients.append({
