@@ -33,6 +33,7 @@ def patient_list():
     for p in Patient.query.all():
         patients.append({
             'id': p.id,
+            'uuid': p.uuid,
             'xml': p.simple_xml
         })
     return {'patients': patients}
