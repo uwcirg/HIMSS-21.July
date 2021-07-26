@@ -19,17 +19,13 @@ new Vue({
   vuetify: new Vuetify(appData),
   data: function() {
     return {
-            //apiURL: "./data/data.json",
             apiURL: API_BASE_URL + "/Patient",
-            //apiURL: "api.php?PatientList=true",
             initialized: false,
             alert: false,
             search: '',
             first_name: "",
             last_name: "",
-            //dob: "",
             gender: "",
-            //condition: "",
             loading: false,
             sortBy: 'id',
             headers: [
