@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="app.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-main>
+        <div class="loader" v-show="!initialized">
+            <v-progress-circular
+            indeterminate
+            color="primary"
+            class="icon"
+            ></v-progress-circular>
+        </div>
+        <v-alert
+            text
+            outlined
+            color="deep-orange"
+            icon="mdi-fire"
+            v-text="errorMessage"
+            dismissible
+            v-show="alert"
+            class="alert"
+        >
+        </v-alert>
+        <v-app-bar
+        absolute
+        dark
+        elevation="1"
+        >
+            <v-toolbar-title>Patient List</v-toolbar-title>
+            <v-spacer></v-spacer>
+        </v-app-bar>
+        <v-container class="list-container" fluid>
+            <v-card>
+                <!-- <v-card-title>
+                    <v-text-field
+                        v-model="search"
+                        append-icon="mdi-magnify"
+                        label="Search"
+                        single-line
+                        hide-details
+                    ></v-text-field>
+                </v-card-title> -->
+                <v-data-table
+                id="patientList"
+                :headers="headers"
+                :items="results"
+                :items-per-page="5"
+                :search="search"
+                class="elevation-1"
+                :sort-by.sync="sortBy"
+                :loading="loading"
+                loading-text="Loading... Please wait"
+                >
+                    <template v-slot:item.link="{ item }">
+                        <div class="buttons-container">
+                            <v-btn
+                            color="primary"
+                            class="btn"
+                            dark
+                            small
+                            rounded
+                            :href="item.EICRLink"
+                            target="_blank"
+                            >
+                            View elCR
+                            </v-btn>
+                            <v-btn
+                            color="primary"
+                            class="btn"
+                            dark
+                            small
+                            rounded
+                            :href="item.RRLink"
+                            target="_blank"
+                            >
+                            View Reportablity Response
+                            </v-btn>
+                        </div>
+                    </template>
+                    <template v-slot:body.prepend>
+                        <tr class="filter-row">
+                            <td><!--id field--></td>
+                            <td>
+                                <v-text-field
+                                v-model="first_name"
+                                type="text"
+                                placeholder="First Name"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field
+                                v-model="last_name"
+                                type="text"
+                                placeholder="Last Name"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field
+                                v-model="gender"
+                                type="text"
+                                placeholder="Gender"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td class="link-cell"></td>
+                        </tr>
+                      </template>
+                </v-data-table>
+            </v-card>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

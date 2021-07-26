@@ -1,0 +1,64 @@
+
+html {
+    font-size: 18px;
+}
+.loader {
+    position: fixed;
+    z-index: 999;
+    background: #FFF;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.loader .icon {
+    position: absolute;
+    left: calc(50% - 16px);
+    top: calc(45% - 16px);
+}
+.alert {
+    margin-top: 72px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+#patientList th {
+    background-color: #673ab7;
+    color: #FFF;
+}
+#patientList th i {
+    color: #FFF;
+    margin-left: 4px;
+}
+#patientList th label {
+    color: #FFF
+}
+.list-container {
+    margin-top: 88px;
+    max-width: 1200px;
+}
+.link-cell {
+    color: #777;
+    text-align: center;
+}
+header {
+    background-color: #FFF !important;
+    color: #444 !important;
+    font-weight: 500;
+}
+.filter-row {
+    background-color: #fcfbfd;
+}
+.v-input {
+    font-size: 14px;
+}
+.v-input .v-icon {
+    font-size: 20px;
+}
+.buttons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buttons-container .btn:first-of-type {
+    margin-right: 4px;
+}
