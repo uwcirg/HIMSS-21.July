@@ -15,6 +15,6 @@ def test_parse_names(simple_xml):
     patient = Patient()
     patient.simple_xml = simple_xml
     results = patient.json()
-    assert results['first_name'] == 'Beakerautoverification'
-    assert results['last_name'] == 'Kmc'
+    assert results['first_name'] == 'Testy'
+    assert results['last_name'] == 'McPatient'
     assert results['gender'] == 'M'
