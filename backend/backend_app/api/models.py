@@ -23,10 +23,10 @@ class SimpleParser(object):
 
     def gender(self):
         found = self.tree.xpath(
-            "//n:patient/n:administrativeGenderCode/n:code/text()",
+            "//n:patient/n:administrativeGenderCode",
             namespaces=self.namespaces)
         if found:
-            return found[0]
+            return found[0].get('code')
 
 
 class Patient(db.Model):

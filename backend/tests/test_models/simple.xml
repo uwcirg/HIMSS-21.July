@@ -34,12 +34,7 @@
             <given>Beakerautoverification</given>
             <family>Kmc</family>
         </name>
-        <administrativeGenderCode>
-            <code>M</code>
-            <codeSystem>2.16.840.1.113883.5.1</codeSystem>
-            <codeSystemName>AdministrativeGenderCode</codeSystemName>
-            <displayName>Male</displayName>
-        </administrativeGenderCode>
+        <administrativeGenderCode code="M" codeSystem="2.16.840.1.113883.5.1" codeSystemName="AdministrativeGenderCode" displayName="Male"/>
         <raceCode>
             <nullFlavor>UNK</nullFlavor>
         </raceCode>
