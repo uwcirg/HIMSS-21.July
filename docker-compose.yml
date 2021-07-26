@@ -36,9 +36,9 @@ services:
       - mcserver_vmoptions
     volumes:
       - appdata:/opt/connect/appdata
+      - ./backend/backend_app/static:/backend/backend_app/static
       - ./opt/connect/custom-extensions:/opt/connect/custom-extensions
       - ./opt/adt/received:/opt/adt/received
-      - ./opt/aims/output:/opt/aims/output
       - ./opt/aims/received:/opt/aims/received
     depends_on:
       - db
