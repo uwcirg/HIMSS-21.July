@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .db import db
@@ -12,6 +13,7 @@ def create_app(testing=False, cli=False):
     app.config.from_object('backend_app.config')
     app.config['TESTING'] = testing
     db.init_app(app)
+    CORS(app)
 
     register_blueprints(app)
     configure_proxy(app)
