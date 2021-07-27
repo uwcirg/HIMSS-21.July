@@ -32,6 +32,7 @@ def patient_raw_list():
         patients.append({
             'id': p.id,
             'uuid': p.uuid,
-            'xml': p.simple_xml
+            'simple-xml': p.simple_xml,
+            'reportable-xml': p.reportable_xml
         })
     return {'patients': patients}
