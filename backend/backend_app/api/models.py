@@ -3,30 +3,34 @@ from ..db import db
 
 
 class SimpleParser(object):
+    """Specialized XPath parser for SimpleXML from Mirth Channel
+
+    NB - client code expects every method not starting with '_' will
+    return the respective value (if found).
+
+    """
     def __init__(self, xml):
         self.namespaces = {'n': 'urn:hl7-org:v3'}
         self.tree = etree.fromstring(xml)
 
-    def first_name(self):
-        found = self.tree.xpath(
-            "//n:patient/n:name/n:given/text()",
-            namespaces=self.namespaces)
+    def _value_if_found(self, xpath, attribute=None):
+        found = self.tree.xpath(xpath, namespaces=self.namespaces)
         if found:
+            if attribute:
+                return found[0].get(attribute)
             return found[0]
+
+    def first_name(self):
+        xpath = "//n:patient/n:name/n:given/text()"
+        return self._value_if_found(xpath)
 
     def last_name(self):
-        found = self.tree.xpath(
-            "//n:patient/n:name/n:family/text()",
-            namespaces=self.namespaces)
-        if found:
-            return found[0]
+        xpath = "//n:patient/n:name/n:family/text()"
+        return self._value_if_found(xpath)
 
     def gender(self):
-        found = self.tree.xpath(
-            "//n:patient/n:administrativeGenderCode",
-            namespaces=self.namespaces)
-        if found:
-            return found[0].get('code')
+        xpath = "//n:patient/n:administrativeGenderCode"
+        return self._value_if_found(xpath, attribute='code')
 
 
 class Patient(db.Model):
@@ -44,8 +48,14 @@ class Patient(db.Model):
         if not self.simple_xml:
             return results
         parser = SimpleParser(self.simple_xml)
-        results['first_name'] = parser.first_name()
-        results['last_name'] = parser.last_name()
-        results['gender'] = parser.gender()
+
+        # Obtain list of methods from parser, all w/o leading '_',
+        # by design return parsed value (or None if not found in XML).
+        attributes = [
+            method_name for method_name in dir(parser)
+            if not method_name.startswith('_') and
+            callable(getattr(parser, method_name))]
+        for attr in attributes:
+            results[attr] = getattr(parser, attr)()
 
         return results
