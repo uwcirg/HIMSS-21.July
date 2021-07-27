@@ -4,6 +4,7 @@
 *__pycache__
 secrets
 backend/.tox
+backend/backend_app/static/*.html
 backend/tests/.coverage
 backend/.eggs
 backend/coverage.xml
