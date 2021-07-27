@@ -13,7 +13,8 @@ var appTheme = {
 var appData = {
     theme: appTheme
 };
-var API_BASE_URL = "https://connectathon.cirg.washington.edu";
+var API_BASE_URL = "";
+//var API_BASE_URL = https://connectathon.cirg.washington.edu; //uncomment for development in different url domain
 new Vue({
   el: '#app',
   vuetify: new Vuetify(appData),
