@@ -150,7 +150,13 @@
                                         <v-icon>mdi-close</v-icon>
                                     </v-btn>
                                     <v-toolbar-title class="white--text">
-                                        <h4 v-text="activeItem.last_name + ', ' + activeItem.first_name"></h4>
+                                        <div class="title-container">
+                                            <h4 class="item" v-text="activeItem.last_name + ', ' + activeItem.first_name"></h4>
+                                            <div class="item">
+                                                <div class="text-body-2">DOB: <span v-text="activeItem.birthdate"></span></div>
+                                                <div class="text-body-2">Gender: <span v-text="activeItem.gender"></span></div>
+                                            </div>
+                                        </div>
                                     </v-toolbar-title>
                                     <v-spacer></v-spacer>
                                     <v-toolbar-items>
@@ -159,7 +165,7 @@
                                         text
                                         @click="dialog = false"
                                         >
-                                        Back to List
+                                        Back to List >>
                                         </v-btn>
                                     </v-toolbar-items>
                                 </v-toolbar>
@@ -169,12 +175,12 @@
                                     <v-tab
                                         :key=0
                                     >
-                                        eICR
+                                    Initial Case Report
                                     </v-tab>
                                     <v-tab
                                         :key=1
                                     >
-                                        RR
+                                    Reportability Response
                                     </v-tab>
                                 </v-tabs>
                                 <v-tabs-items v-model="tab">

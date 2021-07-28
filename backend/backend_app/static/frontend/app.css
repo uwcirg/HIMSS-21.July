@@ -5,6 +5,7 @@ html {
 iframe {
     width: 100%;
     min-height: calc(100vh - 120px);
+    border: 0;
 }
 .loader {
     position: fixed;
@@ -66,6 +67,19 @@ header {
 .buttons-container .btn:first-of-type {
     margin-right: 4px;
 }
-.btn {
+.v-btn, .btn {
     text-transform: initial !important;
+}
+.v-tab {
+    padding-right: 24px !important;
+    padding-left: 24px !important;
+    text-transform: initial;
+}
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.title-container .item {
+    margin-right: 16px;
 }
