@@ -23,17 +23,23 @@ new Vue({
             apiURL: API_BASE_URL + "/Patient",
             initialized: false,
             alert: false,
+            dialog: false,
             search: '',
             first_name: "",
             last_name: "",
             gender: "",
             loading: false,
-            sortBy: 'id',
+            sortBy: 'last_name',
             headers: [
+
                 {
-                    "text": "ID",
-                    "value": "id",
-                    filter: false
+                    "text": "Last Name",
+                    "value": "last_name",
+                    filter: value => {
+                        if (!this.last_name) return true;
+                        return String(value).toLowerCase().indexOf(String(this.last_name).toLowerCase()) >= 0;
+                    },
+                    "align": "center"
                 },
                 {
                     "text": "First Name",
@@ -45,11 +51,11 @@ new Vue({
                     "align": "center"
                 },
                 {
-                    "text": "Last Name",
-                    "value": "last_name",
+                    "text": "Birth Date",
+                    "value": "birthdate",
                     filter: value => {
-                        if (!this.last_name) return true;
-                        return String(value).toLowerCase().indexOf(String(this.last_name).toLowerCase()) >= 0;
+                        if (!this.birthdate) return true;
+                        return String(value).toLowerCase().indexOf(String(this.birthdate).toLowerCase()) >= 0;
                     },
                     "align": "center"
                 },
@@ -63,7 +69,7 @@ new Vue({
                     "align": "center"
                 },
                 {
-                    "text": "Document Links",
+                    "text": "View Reports",
                     "value": "link",
                     filter: false,
                     "align": "center"
@@ -77,7 +83,6 @@ new Vue({
         var self = this;
         console.log(self)
         self.sendRequest(this.apiURL).then(function(response) {
-            console.log("response ", response)
             if (response) {
                 var responseObj = JSON.parse(response);
                 if (responseObj.patients) {
@@ -89,7 +94,7 @@ new Vue({
                         return item;
                     });
                 }
-                console.log("self.results ", self.results)
+                //console.log("self.results ", self.results)
             }
             if (!self.results || !self.results.length) {
                 self.setError("No data returned from the server.");
