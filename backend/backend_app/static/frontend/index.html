@@ -52,7 +52,7 @@
                 >
                     <template v-slot:item.link="{ item }">
                         <div class="buttons-container">
-                            <v-btn
+                            <!-- <v-btn
                             color="primary"
                             class="btn"
                             dark
@@ -73,6 +73,16 @@
                             target="_blank"
                             >
                             RR
+                            </v-btn> -->
+                            <v-btn
+                            color="primary"
+                            class="btn"
+                            dark
+                            small
+                            rounded
+                            @click="viewActiveItem(item)"
+                            >
+                                View Reports
                             </v-btn>
                         </div>
                     </template>
@@ -120,6 +130,71 @@
                             </td>
                             <td class="link-cell"></td>
                         </tr>
+                      </template>
+                      <template v-slot:top>
+                        <v-dialog
+                        v-model="dialog"
+                        fullscreen
+                        hide-overlay
+                        >
+                            <v-card>
+                                <v-toolbar
+                                dark
+                                color="primary"
+                                >
+                                <v-btn
+                                        icon
+                                        dark
+                                        @click="dialog = false"
+                                    >
+                                        <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                    <v-toolbar-title class="white--text">
+                                        <h4 v-text="activeItem.last_name + ', ' + activeItem.first_name"></h4>
+                                    </v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-toolbar-items>
+                                        <v-btn
+                                        dark
+                                        text
+                                        @click="dialog = false"
+                                        >
+                                        Back to List
+                                        </v-btn>
+                                    </v-toolbar-items>
+                                </v-toolbar>
+                                <v-tabs
+                                    v-model="tab"
+                                >
+                                    <v-tab
+                                        :key=0
+                                    >
+                                        eICR
+                                    </v-tab>
+                                    <v-tab
+                                        :key=1
+                                    >
+                                        RR
+                                    </v-tab>
+                                </v-tabs>
+                                <v-tabs-items v-model="tab">
+                                    <v-tab-item
+                                      :key=0
+                                    >
+                                      <v-card flat>
+                                        <div class="eicr-iframe-loader"><iframe :src="activeItem.EICRLink"></iframe></div>
+                                      </v-card>
+                                    </v-tab-item>
+                                    <v-tab-item
+                                      :key=1
+                                    >
+                                      <v-card flat>
+                                          <div class="rr-iframe-loader"><iframe :src="activeItem.RRLink"></iframe></div>
+                                      </v-card>
+                                    </v-tab-item>
+                                </v-tabs-items>
+                            </v-card>
+                        </v-dialog>
                       </template>
                 </v-data-table>
             </v-card>

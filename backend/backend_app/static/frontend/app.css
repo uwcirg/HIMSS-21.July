@@ -2,6 +2,10 @@
 html {
     font-size: 18px;
 }
+iframe {
+    width: 100%;
+    min-height: calc(100vh - 120px);
+}
 .loader {
     position: fixed;
     z-index: 999;
