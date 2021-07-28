@@ -14,13 +14,13 @@ var appData = {
     theme: appTheme
 };
 var API_BASE_URL = "";
-//var API_BASE_URL = https://connectathon.cirg.washington.edu; //uncomment for development in different url domain
 new Vue({
   el: '#app',
   vuetify: new Vuetify(appData),
   data: function() {
     return {
             apiURL: API_BASE_URL + "/Patient",
+            //apiURL: "./data/data.json", for mock data
             initialized: false,
             alert: false,
             dialog: false,
@@ -82,7 +82,6 @@ new Vue({
     },
     mounted: function() {
         var self = this;
-        console.log(self)
         self.sendRequest(this.apiURL).then(function(response) {
             if (response) {
                 var responseObj = JSON.parse(response);
@@ -92,6 +91,7 @@ new Vue({
                         item["link"] = "";
                         item["EICRLink"] = API_BASE_URL+"/static/"+item.uuid+"_eICR.html";
                         item["RRLink"] = API_BASE_URL+"/static/"+item.uuid+"_RR.html";
+                        item["birthdate"] = self.formatBirthDate(item["birthdate"]);
                         return item;
                     });
                 }
@@ -106,7 +106,8 @@ new Vue({
             }.bind(self), 150);
         }).catch(function(e) {
             self.initialized = true;
-            self.setError("Unable to display data. see console for detail. " + e);
+            self.setError("Unable to display data. see console for detail. " + (e.status && e.statusText ? (e.status + " " + e.statusText): e));
+            console.log("api error ", e)
         });
     },
     methods: {
@@ -117,6 +118,13 @@ new Vue({
                 return;
             }
             this.alert = false;
+        },
+        formatBirthDate: function(dobString) {
+            if (!dobString) return "";
+            var year = dobString.substr(0, 4);
+            var month = dobString.substr(4, 2) - 1;
+            var day = dobString.substr(6, 2);
+            return year+"-"+month+"-"+day;
         },
         sendRequest: function(url, params) {
             params = params || {};
