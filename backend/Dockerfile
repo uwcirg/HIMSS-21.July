@@ -9,7 +9,4 @@ COPY . .
 
 EXPOSE 5000
 
-ENV FLASK_APP=backend_app/app:create_app() \
-    FLASK_ENV=development
-
-CMD flask run --host 0.0.0.0
+CMD gunicorn --bind "0.0.0.0:${P_PORT:-5000}" backend_app.wsgi:app
