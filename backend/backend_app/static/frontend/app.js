@@ -28,6 +28,7 @@ new Vue({
             first_name: "",
             last_name: "",
             gender: "",
+            birthdate: "",
             loading: false,
             sortBy: 'last_name',
             headers: [
