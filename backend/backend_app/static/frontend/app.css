@@ -62,3 +62,6 @@ header {
 .buttons-container .btn:first-of-type {
     margin-right: 4px;
 }
+.btn {
+    text-transform: initial !important;
+}
