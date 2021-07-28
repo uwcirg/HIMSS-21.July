@@ -20,10 +20,16 @@ new Vue({
   data: function() {
     return {
             apiURL: API_BASE_URL + "/Patient",
-            //apiURL: "./data/data.json", for mock data
+            //apiURL: "./data/data.json", //for mock data
             initialized: false,
             alert: false,
             dialog: false,
+            tab: null,
+            activeItem: {
+                first_name: "",
+                last_name: "",
+                birthdate: ""
+            },
             search: '',
             first_name: "",
             last_name: "",
@@ -80,6 +86,11 @@ new Vue({
             errorMessage: ""
         }
     },
+    watch: {
+        dialog (val) {
+          val || this.closeDialog()
+        }
+    },
     mounted: function() {
         var self = this;
         self.sendRequest(this.apiURL).then(function(response) {
@@ -91,6 +102,9 @@ new Vue({
                         item["link"] = "";
                         item["EICRLink"] = API_BASE_URL+"/static/"+item.uuid+"_eICR.html";
                         item["RRLink"] = API_BASE_URL+"/static/"+item.uuid+"_RR.html";
+                        //mock data testing
+                        // item["EICRLink"] = "./data/eICR.html";
+                        // item["RRLink"] = "./data/RR.html";
                         item["birthdate"] = self.formatBirthDate(item["birthdate"]);
                         return item;
                     });
@@ -122,9 +136,16 @@ new Vue({
         formatBirthDate: function(dobString) {
             if (!dobString) return "";
             var year = dobString.substr(0, 4);
-            var month = dobString.substr(4, 2) - 1;
+            var month = dobString.substr(4, 2);
             var day = dobString.substr(6, 2);
             return year+"-"+month+"-"+day;
+        },
+        viewActiveItem: function(item) {
+            this.activeItem = Object.assign({}, item);
+            this.dialog = true;
+        },
+        closeDialog: function() {
+            this.dialog = false;
         },
         sendRequest: function(url, params) {
             params = params || {};
