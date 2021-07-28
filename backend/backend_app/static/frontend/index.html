@@ -34,7 +34,7 @@
         dark
         elevation="1"
         >
-            <v-toolbar-title>Patient List</v-toolbar-title>
+            <v-toolbar-title>WA State PHA received case reports</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-container class="list-container" fluid>
@@ -61,7 +61,7 @@
                             :href="item.EICRLink"
                             target="_blank"
                             >
-                            View elCR
+                            eICR
                             </v-btn>
                             <v-btn
                             color="primary"
@@ -72,13 +72,22 @@
                             :href="item.RRLink"
                             target="_blank"
                             >
-                            View Reportablity Response
+                            RR
                             </v-btn>
                         </div>
                     </template>
                     <template v-slot:body.prepend>
                         <tr class="filter-row">
-                            <td><!--id field--></td>
+                            <td>
+                                <v-text-field
+                                v-model="last_name"
+                                type="text"
+                                placeholder="Last Name"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
                             <td>
                                 <v-text-field
                                 v-model="first_name"
@@ -91,9 +100,9 @@
                             </td>
                             <td>
                                 <v-text-field
-                                v-model="last_name"
+                                v-model="birthdate"
                                 type="text"
-                                placeholder="Last Name"
+                                placeholder="Birth Date"
                                 single-line
                                 prepend-icon="mdi-filter"
                                 clearable
