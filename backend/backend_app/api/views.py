@@ -33,6 +33,6 @@ def patient_raw_list():
             'id': p.id,
             'uuid': p.uuid,
             'simple-xml': p.simple_xml,
-            'reportable-xml': p.reportable_xml
+            'jurisdiction': p.jurisdiction
         })
     return {'patients': patients}
