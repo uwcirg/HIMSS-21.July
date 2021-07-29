@@ -21,50 +21,38 @@ class SimpleParser(object):
             return found[0]
 
     def address(self):
-        xpath = "//n:patientRole/n:addr/n:streetAddressLine"
-        unknown = self._value_if_found(xpath, attribute="nullFlavor")
-        value = self._value_if_found(xpath)
-        return unknown or value
+        xpath = "//n:patient/n:address/n:streetAddressLine/text()"
+        return self._value_if_found(xpath)
 
     def city(self):
-        xpath = "//n:patientRole/n:addr/n:city"
-        unknown = self._value_if_found(xpath, attribute="nullFlavor")
-        value = self._value_if_found(xpath)
-        return unknown or value
+        xpath = "//n:patient/n:address/n:city/text()"
+        return self._value_if_found(xpath)
 
     def state(self):
-        xpath = "//n:patientRole/n:addr/n:state"
-        unknown = self._value_if_found(xpath, attribute="nullFlavor")
-        value = self._value_if_found(xpath)
-        return unknown or value
+        xpath = "//n:patient/n:address/n:state/text()"
+        return self._value_if_found(xpath)
 
     def zip(self):
-        xpath = "//n:patientRole/n:addr/n:postalCode"
-        unknown = self._value_if_found(xpath, attribute="nullFlavor")
-        value = self._value_if_found(xpath)
-        return unknown or value
+        xpath = "//n:patient/n:address/n:postalCode/text()"
+        return self._value_if_found(xpath)
 
     def phone(self):
-        xpath = "//n:patientRole/n:telecom"
-        unknown = self._value_if_found(xpath, attribute="nullFlavor")
-        value = self._value_if_found(xpath)
-        return unknown or value
+        xpath = "//n:patient/n:telecommunications/n:telecom/n:value/text()"
+        return self._value_if_found(xpath)
 
     def race(self):
-        xpath = "//n:patient/n:raceCode"
-        unknown = self._value_if_found(xpath, attribute="nullFlavor")
-        value = self._value_if_found(xpath)
-        return unknown or value
+        xpath = "//n:patient/n:raceCode/n:displayName/text()"
+        xpath_fallback = "//n:patient/n:raceCode/n:nullFlavor/text()"
+        return self._value_if_found(xpath) or self._value_if_found(xpath_fallback)
 
     def ethnicity(self):
-        xpath = "//n:patient/n:ethnicGroupCode"
-        unknown = self._value_if_found(xpath, attribute="nullFlavor")
-        value = self._value_if_found(xpath)
-        return unknown or value
+        xpath = "//n:patient/n:ethnicGroupCode/n:displayName/text()"
+        xpath_fallback = "//n:patient/n:ethnicGroupCode/n:nullFlavor/text()"
+        return self._value_if_found(xpath) or self._value_if_found(xpath_fallback)
 
     def birthdate(self):
-        xpath = "//n:patient/n:birthTime"
-        return self._value_if_found(xpath, attribute="value")
+        xpath = "//n:patient/n:dateOfBirth/text()"
+        return self._value_if_found(xpath)
 
     def first_name(self):
         xpath = "//n:patient/n:name/n:given/text()"
@@ -75,21 +63,32 @@ class SimpleParser(object):
         return self._value_if_found(xpath)
 
     def gender(self):
-        xpath = "//n:patient/n:administrativeGenderCode"
-        return self._value_if_found(xpath, attribute='code')
+        xpath = "//n:patient/n:administrativeGenderCode/n:code/text()"
+        return self._value_if_found(xpath)
 
+    def reportable_condition(self):
+        xpath = "//n:rr/n:condition/n:displayName/text()"
+        return self._value_if_found(xpath)
 
-class ReportableParser(object):
-    """Specialized XPath parser for ReportableXML from Mirth Channel """
-    def __init__(self, xml):
-        self.tree = etree.fromstring(xml)
+    def reason_for_report(self):
+        xpath = "//n:rr/n:condition/n:displayName/text()"
+        return self._value_if_found(xpath)
 
-    def reportables(self):
-        results = []
-        conditions = self.tree.xpath("condition/displayName/text()")
-        for condition in conditions:
-            results.append(condition)
-        return results
+    def doc_id(self):
+        xpath = "//n:docID/n:root/text()"
+        return self._value_if_found(xpath)
+
+    def date_of_report(self):
+        xpath = "//n:effectiveTime/n:value/text()"
+        return self._value_if_found(xpath)
+
+    def provider(self):
+        fname = self._value_if_found(
+            "//n:encompassingEncounter/n:provider/n:name/n:given/text()")
+        lname = self._value_if_found(
+            "//n:encompassingEncounter/n:provider/n:name/n:family/text()")
+        if lname and not lname.startswith('null'):
+            return ', '.join((lname, fname))
 
 
 class Patient(db.Model):
@@ -97,7 +96,7 @@ class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(db.Text, nullable=True)
     simple_xml = db.Column(db.Text, nullable=True)
-    reportable_xml = db.Column(db.Text, nullable=True)
+    jurisdiction = db.Column(db.Text, nullable=True)
 
     def __repr__(self):
         return "<Patient %d>" % self.id
@@ -118,9 +117,5 @@ class Patient(db.Model):
         for attr in attributes:
             results[attr] = getattr(parser, attr)()
 
-        # Add details within "reportableXML"
-        if self.reportable_xml:
-            reportableParser = ReportableParser(self.reportable_xml)
-            results['reportable_conditions'] = reportableParser.reportables()
-
+        results['jurisdiction'] = self.jurisdiction
         return results
