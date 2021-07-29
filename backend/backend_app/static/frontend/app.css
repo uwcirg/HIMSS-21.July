@@ -4,8 +4,9 @@ html {
 }
 iframe {
     width: 100%;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 136px);
     border: 0;
+    margin-top: 16px;
 }
 .loader {
     position: fixed;
@@ -75,11 +76,17 @@ header {
     padding-left: 24px !important;
     text-transform: initial;
 }
+.v-toolbar__title {
+    padding-left: 8px !important;
+}
 .title-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 .title-container .item {
-    margin-right: 16px;
+    margin-right: 20px;
+}
+.v-slide-group__wrapper {
+    border-bottom: 1px solid #ececec;
 }

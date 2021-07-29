@@ -24,21 +24,33 @@ new Vue({
             initialized: false,
             alert: false,
             dialog: false,
-            tab: null,
+            tab: "tab_eicr",
             activeItem: {
                 first_name: "",
                 last_name: "",
                 birthdate: ""
             },
             search: '',
+            date_of_report: "",
             first_name: "",
             last_name: "",
             gender: "",
             birthdate: "",
+            reason_for_report: "",
+            reportable_conditions: "",
+            jurisdiction: "",
             loading: false,
-            sortBy: 'last_name',
+            sortBy: 'date_of_report',
             headers: [
-
+                {
+                    "text": "Date Reported",
+                    "value": "date_of_report",
+                    filter: value => {
+                        if (!this.date_of_report) return true;
+                        return String(value).toLowerCase().indexOf(String(this.date_of_report).toLowerCase()) >= 0;
+                    },
+                    "align": "center"
+                },
                 {
                     "text": "Last Name",
                     "value": "last_name",
@@ -76,10 +88,38 @@ new Vue({
                     "align": "center"
                 },
                 {
+                    "text": "Display Name",
+                    "value": "reason_for_report",
+                    filter: value => {
+                        if (!this.reason_for_report) return true;
+                        return String(value).toLowerCase().indexOf(String(this.reason_for_report).toLowerCase()) >= 0;
+                    },
+                    "align": "center"
+                },
+                {
+                    "text": "Short Name",
+                    "value": "reportable_conditions",
+                    filter: value => {
+                        if (!this.reportable_conditions) return true;
+                        return String(value).toLowerCase().indexOf(String(this.reportable_conditions).toLowerCase()) >= 0;
+                    },
+                    "align": "center"
+                },
+                {
+                    "text": "Jurisdiction Reported",
+                    "value": "jurisdiction",
+                    filter: value => {
+                        if (!this.jurisdiction) return true;
+                        return String(value).toLowerCase().indexOf(String(this.jurisdiction).toLowerCase()) >= 0;
+                    },
+                    "align": "center"
+                },
+                {
                     "text": "View Reports",
                     "value": "link",
                     filter: false,
-                    "align": "center"
+                    "align": "center",
+                    "complexType": true
                 },
             ],
             results: [],
@@ -103,9 +143,10 @@ new Vue({
                         item["EICRLink"] = API_BASE_URL+"/static/"+item.uuid+"_eICR.html";
                         item["RRLink"] = API_BASE_URL+"/static/"+item.uuid+"_RR.html";
                         //mock data testing
-                        // item["EICRLink"] = "./data/eICR.html";
-                        // item["RRLink"] = "./data/RR.html";
-                        item["birthdate"] = self.formatBirthDate(item["birthdate"]);
+                        //item["EICRLink"] = "./data/eICR.html";
+                        //item["RRLink"] = "./data/RR.html";
+                        item["birthdate"] = self.formatDate(item["birthdate"]);
+                        item["date_of_report"] = self.formatDate(item["date_of_report"]);
                         return item;
                     });
                 }
@@ -133,11 +174,11 @@ new Vue({
             }
             this.alert = false;
         },
-        formatBirthDate: function(dobString) {
-            if (!dobString) return "";
-            var year = dobString.substr(0, 4);
-            var month = dobString.substr(4, 2);
-            var day = dobString.substr(6, 2);
+        formatDate: function(string) {
+            if (!string) return "";
+            var year = string.substr(0, 4);
+            var month = string.substr(4, 2);
+            var day = string.substr(6, 2);
             return year+"-"+month+"-"+day;
         },
         viewActiveItem: function(item) {
@@ -145,7 +186,20 @@ new Vue({
             this.dialog = true;
         },
         closeDialog: function() {
+            this.tab = "tab_eicr";
             this.dialog = false;
+        },
+        inHeaderList: function(key) {
+            return this.headers.filter(function(item) {
+                return !item.complexType && String(item.value) === String(key);
+            }).length > 0;
+        },
+        getDisplayText: function(key) {
+            var matchedField = this.headers.filter(function(item) {
+                return String(item.value) === String(key);
+            });
+            if (!matchedField.length) return "";
+            return matchedField[0].text;
         },
         sendRequest: function(url, params) {
             params = params || {};
