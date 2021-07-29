@@ -33,3 +33,5 @@ def test_parse_names(simple_xml):
     assert results['date_of_report'] == '20210719173828-0700'
     assert results['reason_for_report'] == (
         'Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)')
+    assert results['doc_id'] == '1.2.840.114350.1.13.296.3.7.8.688883.176734'
+    assert results['provider'] == 'Johnson, Jane'

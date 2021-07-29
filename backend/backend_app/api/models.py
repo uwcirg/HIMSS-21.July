@@ -74,9 +74,21 @@ class SimpleParser(object):
         xpath = "//n:rr/n:condition/n:displayName/text()"
         return self._value_if_found(xpath)
 
+    def doc_id(self):
+        xpath = "//n:docID/n:root/text()"
+        return self._value_if_found(xpath)
+
     def date_of_report(self):
         xpath = "//n:effectiveTime/n:value/text()"
         return self._value_if_found(xpath)
+
+    def provider(self):
+        fname = self._value_if_found(
+            "//n:encompassingEncounter/n:provider/n:name/n:given/text()")
+        lname = self._value_if_found(
+            "//n:encompassingEncounter/n:provider/n:name/n:family/text()")
+        if lname and not lname.startswith('null'):
+            return ', '.join((lname, fname))
 
 
 class Patient(db.Model):
