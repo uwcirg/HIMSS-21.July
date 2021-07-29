@@ -27,7 +27,7 @@ def test_parse_names(simple_xml):
     assert results['phone'] == '206-123-4567'
     assert results['race'] == 'UNK'
     assert results['ethnicity'] == 'UNK'
-    assert results['reportable_conditions'] == (
+    assert results['reportable_condition'] == (
         'Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)')
     assert results['jurisdiction'] == 'WA'
     assert results['date_of_report'] == '20210719173828-0700'

@@ -66,7 +66,7 @@ class SimpleParser(object):
         xpath = "//n:patient/n:administrativeGenderCode/n:code/text()"
         return self._value_if_found(xpath)
 
-    def reportable_conditions(self):
+    def reportable_condition(self):
         xpath = "//n:rr/n:condition/n:displayName/text()"
         return self._value_if_found(xpath)
 
