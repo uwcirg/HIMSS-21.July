@@ -56,14 +56,14 @@
       <nullFlavor>UNK</nullFlavor>
     </language>
     <address>
-      <streetAddressLine>nullFlavor_UNK</streetAddressLine>
-      <city>nullFlavor_UNK</city>
-      <state>nullFlavor_UNK</state>
-      <postalCode>nullFlavor_UNK</postalCode>
+      <streetAddressLine>123 Main Blvd</streetAddressLine>
+      <city>Renton</city>
+      <state>WA</state>
+      <postalCode>98006-1234</postalCode>
     </address>
     <telecommunications>
       <telecom>
-        <value>nullFlavor_UNK</value>
+        <value>206-123-4567</value>
       </telecom>
     </telecommunications>
   </patient>
