@@ -37,7 +37,7 @@ new Vue({
             gender: "",
             birthdate: "",
             reason_for_report: "",
-            reportable_conditions: "",
+            reportable_condition: "",
             jurisdiction: "",
             loading: false,
             sortBy: 'date_of_report',
@@ -98,10 +98,10 @@ new Vue({
                 },
                 {
                     "text": "Short Name",
-                    "value": "reportable_conditions",
+                    "value": "reportable_condition",
                     filter: value => {
-                        if (!this.reportable_conditions) return true;
-                        return String(value).toLowerCase().indexOf(String(this.reportable_conditions).toLowerCase()) >= 0;
+                        if (!this.reportable_condition) return true;
+                        return String(value).toLowerCase().indexOf(String(this.reportable_condition).toLowerCase()) >= 0;
                     },
                     "align": "center"
                 },
