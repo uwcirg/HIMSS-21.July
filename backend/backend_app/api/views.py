@@ -1,6 +1,6 @@
 from flask import Blueprint
 from ..db import db
-from .models import Patient
+from .models import Patient, RckmsConditionCodes
 
 base_blueprint = Blueprint('base', __name__)
 
@@ -12,8 +12,10 @@ def root():
 
 @base_blueprint.route('/init-db')
 def init_db():
+    from ..code_systems.load_table import load_rckms_condition_codes
     db.drop_all()
     db.create_all()
+    load_rckms_condition_codes()
     return {'ok': True}
 
 
@@ -36,3 +38,16 @@ def patient_raw_list():
             'jurisdiction': p.jurisdiction
         })
     return {'patients': patients}
+
+
+@base_blueprint.route('/RCKMS-codes')
+def rckms_codes():
+    codes = []
+    for rcc in RckmsConditionCodes.query.all():
+        codes.append({
+            'id': rcc.id,
+            'code': rcc.code,
+            'code_system': rcc.code_system,
+            'condition': rcc.condition
+        })
+    return {'RCKMS_ConditionCodes': codes}

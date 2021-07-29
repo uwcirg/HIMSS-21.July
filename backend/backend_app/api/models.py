@@ -1,3 +1,4 @@
+from flask import has_app_context
 from lxml import etree
 from ..db import db
 
@@ -67,8 +68,16 @@ class SimpleParser(object):
         return self._value_if_found(xpath)
 
     def reportable_condition(self):
-        xpath = "//n:rr/n:condition/n:displayName/text()"
-        return self._value_if_found(xpath)
+        code = self._value_if_found("//n:rr/n:condition/n:code/text()")
+        code_system = self._value_if_found("//n:rr/n:condition/n:codeSystem/text()")
+        if code and code_system and has_app_context():
+            found = RckmsConditionCodes.query.filter(
+                RckmsConditionCodes.code == code).filter(
+                RckmsConditionCodes.code_system == code_system).first()
+            if found:
+                return found.condition
+
+        return self._value_if_found('//n:rr/n:condition/n:displayName/text()')
 
     def reason_for_report(self):
         xpath = "//n:rr/n:condition/n:displayName/text()"
@@ -119,3 +128,14 @@ class Patient(db.Model):
 
         results['jurisdiction'] = self.jurisdiction
         return results
+
+
+class RckmsConditionCodes(db.Model):
+    __tablename__ = 'rckms_condition_codes'
+    id = db.Column(db.Integer, primary_key=True)
+    condition = db.Column(db.Text, nullable=True)
+    code = db.Column(db.Text, nullable=True)
+    code_system = db.Column(db.Text, nullable=True)
+
+    def from_parser(self):
+        pass
