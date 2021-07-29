@@ -31,6 +31,12 @@ def load_rckms_condition_codes():
         rcc = RckmsConditionCodes()
         rcc.condition = row['Condition']
         rcc.code = row['Code']
-        rcc.code_system = row['Code System']
+        # What they're calling `Code System` is really the `Code System Name`
+        # and furthermore, they removed whitespace from what we see in channel
+        # data.  Perform mapping:
+        if row['Code System'] == 'SNOMEDCT':
+            rcc.code_system = '2.16.840.1.113883.6.96'
+        else:
+            rcc.code_system = row['Code System']
         db.session.add(rcc)
     db.session.commit()

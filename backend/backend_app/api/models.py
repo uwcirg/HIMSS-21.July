@@ -69,7 +69,7 @@ class SimpleParser(object):
 
     def reportable_condition(self):
         code = self._value_if_found("//n:rr/n:condition/n:code/text()")
-        code_system = self._value_if_found("//n:rr/n:condition/n:codeSystemName/text()")
+        code_system = self._value_if_found("//n:rr/n:condition/n:codeSystem/text()")
         if code and code_system and has_app_context():
             found = RckmsConditionCodes.query.filter(
                 RckmsConditionCodes.code == code).filter(
