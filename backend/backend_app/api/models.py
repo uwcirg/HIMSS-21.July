@@ -66,18 +66,17 @@ class SimpleParser(object):
         xpath = "//n:patient/n:administrativeGenderCode/n:code/text()"
         return self._value_if_found(xpath)
 
+    def reportable_conditions(self):
+        xpath = "//n:rr/n:condition/n:displayName/text()"
+        return self._value_if_found(xpath)
 
-class ReportableParser(object):
-    """Specialized XPath parser for ReportableXML from Mirth Channel """
-    def __init__(self, xml):
-        self.tree = etree.fromstring(xml)
+    def reason_for_report(self):
+        xpath = "//n:rr/n:condition/n:displayName/text()"
+        return self._value_if_found(xpath)
 
-    def reportables(self):
-        results = []
-        conditions = self.tree.xpath("condition/displayName/text()")
-        for condition in conditions:
-            results.append(condition)
-        return results
+    def date_of_report(self):
+        xpath = "//n:effectiveTime/n:value/text()"
+        return self._value_if_found(xpath)
 
 
 class Patient(db.Model):
@@ -85,7 +84,7 @@ class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uuid = db.Column(db.Text, nullable=True)
     simple_xml = db.Column(db.Text, nullable=True)
-    reportable_xml = db.Column(db.Text, nullable=True)
+    jurisdiction = db.Column(db.Text, nullable=True)
 
     def __repr__(self):
         return "<Patient %d>" % self.id
@@ -106,9 +105,5 @@ class Patient(db.Model):
         for attr in attributes:
             results[attr] = getattr(parser, attr)()
 
-        # Add details within "reportableXML"
-        if self.reportable_xml:
-            reportableParser = ReportableParser(self.reportable_xml)
-            results['reportable_conditions'] = reportableParser.reportables()
-
+        results['jurisdiction'] = self.jurisdiction
         return results

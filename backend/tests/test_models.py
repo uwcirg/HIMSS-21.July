@@ -11,17 +11,10 @@ def simple_xml(datadir):
     return data
 
 
-@pytest.fixture
-def reportable_xml(datadir):
-    with open(os.path.join(datadir, 'reportable.xml'), 'r') as xml_file:
-        data = xml_file.read()
-    return data
-
-
-def test_parse_names(simple_xml, reportable_xml):
+def test_parse_names(simple_xml):
     patient = Patient()
     patient.simple_xml = simple_xml
-    patient.reportable_xml = reportable_xml
+    patient.jurisdiction = "WA"
     results = patient.json()
     assert results['first_name'] == 'Testy'
     assert results['last_name'] == 'McPatient'
@@ -34,5 +27,9 @@ def test_parse_names(simple_xml, reportable_xml):
     assert results['phone'] == '206-123-4567'
     assert results['race'] == 'UNK'
     assert results['ethnicity'] == 'UNK'
-    assert results['reportable_conditions'] == [
-        'Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)']
+    assert results['reportable_conditions'] == (
+        'Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)')
+    assert results['jurisdiction'] == 'WA'
+    assert results['date_of_report'] == '20210719173828-0700'
+    assert results['reason_for_report'] == (
+        'Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)')
