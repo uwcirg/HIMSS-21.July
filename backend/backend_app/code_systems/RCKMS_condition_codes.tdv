@@ -1,0 +1,109 @@
+Condition	Condition Category	Code	Concept Name	Code System
+Cancer	Cancer	363346000	Malignant neoplastic disease (disorder) 	SNOMEDCT
+Colorado tick fever	Vectorborne Diseases	6452009	Colorado tick fever (disorder)	SNOMEDCT
+Creutzfeldt-Jakob Disease (CJD) and Variant Creutzfeldt-Jakob Disease (vCJD)	Neurological Diseases	792004	Jakob-Creutzfeldt disease (disorder)	SNOMEDCT
+Hepatitis E 	Enteric Diseases	7111000119109	Viral hepatitis type E (disorder)	SNOMEDCT
+Japanese encephalitis virus disease	Vectorborne Diseases	52947006	Japanese encephalitis virus disease (disorder)	SNOMEDCT
+Monkeypox 	Zoonotic Diseases	359814004	Monkeypox (disorder) 	SNOMEDCT
+Ricin Poisoning 	Toxic Effect of Non-Medicinal Substances 	409617000	Ricin poisoning (disorder) 	SNOMEDCT
+Seafood Poisoning	Toxic Effect of Non-Medicinal Substances 	269275003	Seafood causing toxic effect (disorder)	SNOMEDCT
+Work-related Asthma (WRA)	Respiratory Conditions (non-infectious)	57607007	Occupational asthma (disorder)	SNOMEDCT
+Acanthamoeba	Waterborne (not enteric)	49649001	Infection caused by Acanthamoeba (disorder) 	SNOMEDCT
+Acute Flaccid Myelitis (AFM)	Neurological Diseases	897031002	Acute flaccid myelitis (disorder)	SNOMEDCT
+Anaplasmosis	Vectorborne Diseases	13906002	Anaplasmosis (disorder)	SNOMEDCT
+Anthrax	Zoonotic Diseases	409498004	Anthrax (disorder)	SNOMEDCT
+Arboviral Disease [Other]	Vectorborne Diseases	40610006	Arbovirus infection (disorder)	SNOMEDCT
+Babesiosis	Vectorborne Diseases	21061004	Babesiosis (disorder)	SNOMEDCT
+Balamuthia mandrillaris Disease	Waterborne (not enteric)	115635005	Balamuthia mandrillaris (organism) 	SNOMEDCT
+Blastomycosis	Respiratory Conditions (infectious)	69996000	Blastomycosis (disorder)	SNOMEDCT
+Botulism	Toxic Effect of Non-Medicinal Substances 	398565003	Infection caused by Clostridium botulinum (disorder)	SNOMEDCT
+Brucellosis	Zoonotic Diseases	75702008	Brucellosis (disorder)	SNOMEDCT
+California Serogroup Virus Disease	Vectorborne Diseases	418182000	Disease caused by California serogroup virus (disorder)	SNOMEDCT
+Campylobacteriosis	Enteric Diseases	86500004	Campylobacteriosis (disorder)	SNOMEDCT
+Candida auris infection	Healthcare-Associated Events	3491000146109	Candida auris (organism)	SNOMEDCT
+Carbapenemase-producing Carbapenem-resistant Enterobacteriaceae (CP-CRE)	Healthcare-Associated Events	734351004	Carbapenemase-producing Enterobacteriaceae (organism)	SNOMEDCT
+Carbon Monoxide Poisoning	Toxic Effect of Non-Medicinal Substances 	17383000	Toxic effect of carbon monoxide (disorder)	SNOMEDCT
+Chancroid	Sexually Transmitted Diseases	266143009	Chancroid (disorder)	SNOMEDCT
+Chikungunya virus disease 	Vectorborne Diseases	111864006	Chikungunya fever (disorder)	SNOMEDCT
+Chlamydia trachomatis infection	Sexually Transmitted Diseases	240589008	Chlamydia trachomatis infection (disorder) 	SNOMEDCT
+Cholera	Enteric Diseases	63650001	Cholera (disorder)	SNOMEDCT
+Coccidioidomycosis	Respiratory Conditions (infectious)	60826002	Coccidioidomycosis (disorder)	SNOMEDCT
+Congenital Rubella Syndrome (CRS)	Vaccine Preventable Diseases	1857005	Congenital rubella syndrome (disorder)	SNOMEDCT
+Congenital Syphilis	Sexually Transmitted Diseases	35742006	Congenital syphilis (disorder)	SNOMEDCT
+COVID-19	Respiratory Conditions (infectious)	840539006	Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)	SNOMEDCT
+Cryptosporidiosis	Enteric Diseases	240370009	Cryptosporidiosis (disorder)	SNOMEDCT
+Cyclosporiasis	Enteric Diseases	240372001	Cyclosporiasis (disorder)	SNOMEDCT
+Dengue Virus Infection	Vectorborne Diseases	38362002	Dengue (disorder)	SNOMEDCT
+Diphtheria	Vaccine Preventable Diseases	276197005	Infection caused by Corynebacterium diphtheriae (disorder)	SNOMEDCT
+Eastern equine encephalitis virus disease	Vectorborne Diseases	416925005	Eastern equine encephalitis virus infection (disorder)	SNOMEDCT
+Ehrlichiosis 	Vectorborne Diseases	240626005	Human ehrlichiosis (disorder)	SNOMEDCT
+Elevated Blood Lead Level	Toxic Effect of Non-Medicinal Substances 	407152001	Increased blood lead level (finding)	SNOMEDCT
+Extrapulmonary Nontuberculous Mycobacteria Infection	Waterborne (not enteric)	111811007	Mycobacterial infection (excluding tuberculosis AND leprosy) (disorder)  	SNOMEDCT
+Giardiasis	Enteric Diseases	58265007	Giardiasis (disorder)	SNOMEDCT
+Gonorrhea	Sexually Transmitted Diseases	15628003	Gonorrhea (disorder)	SNOMEDCT
+Hansen's disease	Respiratory Conditions (infectious)	81004002	Leprosy (disorder)	SNOMEDCT
+Hantavirus Infection	Zoonotic Diseases	359761005	Disease caused by Hantavirus (disorder)	SNOMEDCT
+Hemolytic uremic syndrome (HUS)	Enteric Diseases	111407006	Hemolytic uremic syndrome (disorder)	SNOMEDCT
+Hepatitis A	Enteric Diseases	40468003	Viral hepatitis, type A (disorder)	SNOMEDCT
+Hepatitis B Virus Infection	Bloodborne Diseases	66071002	Viral hepatitis type B (disorder)	SNOMEDCT
+Hepatitis B Virus Infection, Perinatal 	Bloodborne Diseases	60498001	Congenital viral hepatitis B infection (disorder)	SNOMEDCT
+Hepatitis C Infection	Bloodborne Diseases	50711007	Viral hepatitis type C (disorder)	SNOMEDCT
+Histoplasmosis	Respiratory Conditions (infectious)	12962009	Histoplasmosis (disorder)	SNOMEDCT
+HIV Infection or AIDS	Sexually Transmitted Diseases	76981000119106	Human immunodeficiency virus (HIV) infection category B1 (disorder)	SNOMEDCT
+Influenza-Associated Hospitalizations	Vaccine Preventable Diseases	719590007	Influenza caused by seasonal influenza virus (disorder)	SNOMEDCT
+Influenza-associated pediatric mortality	Vaccine Preventable Diseases	6142004	Influenza (disorder)	SNOMEDCT
+Invasive Haemophilus Influenzae Disease	Vaccine Preventable Diseases	406583002	Invasive Haemophilus influenzae disease (disorder)	SNOMEDCT
+Invasive Pneumococcal Disease	Vaccine Preventable Diseases	406617004	Invasive Streptococcus pneumoniae disease (disorder)	SNOMEDCT
+Latent tuberculosis infection (LTBI)	Respiratory Conditions (infectious)	11999007	Inactive tuberculosis (disorder)	SNOMEDCT
+Legionellosis	Respiratory Conditions (infectious)	26726000	Legionella infection (disorder)	SNOMEDCT
+Leptospirosis	Zoonotic Diseases	77377001	Leptospirosis (disorder)	SNOMEDCT
+Listeriosis	Enteric Diseases	4241002	Listeriosis (disorder)	SNOMEDCT
+Lyme disease	Vectorborne Diseases	23502006	Lyme disease (disorder)	SNOMEDCT
+Malaria	Vectorborne Diseases	61462000	Malaria (disorder)	SNOMEDCT
+Measles	Vaccine Preventable Diseases	14189004	Measles (disorder)	SNOMEDCT
+Melioidosis	Waterborne (not enteric)	428111003	Melioidosis (disorder)	SNOMEDCT
+Meningococcal disease	Vaccine Preventable Diseases	23511006	Meningococcal infectious disease (disorder)	SNOMEDCT
+Middle East Respiratory Syndrome (MERS)	Respiratory Conditions (infectious)	651000146102	Middle East respiratory syndrome (disorder)	SNOMEDCT
+Mumps	Vaccine Preventable Diseases	36989005	Mumps (disorder)	SNOMEDCT
+Naegleria fowleri Primary Amebic Meningoencephalitis	Waterborne (not enteric)	428175000	Primary amebic encephalitis caused by Naegleria fowleri (disorder)  	SNOMEDCT
+Non-pestis Yersiniosis	Enteric Diseases	83436008	Yersiniosis (disorder)	SNOMEDCT
+Non-Streptococcal Toxic Shock Syndrome	Toxic Effect of Non-Medicinal Substances 	18504008	Toxic shock syndrome (disorder)	SNOMEDCT
+Novel Influenza A Virus Infection	Vaccine Preventable Diseases	772828001	Influenza caused by Influenza A virus subtype H5N1 (disorder)	SNOMEDCT
+Opioid Overdose and Poisoning	Toxic Effect of Non-Medicinal Substances 	242253008	Overdose of opiate (disorder)	SNOMEDCT
+Parkinson's disease	Neurological Diseases	49049000	Parkinson's disease (disorder)	SNOMEDCT
+Pertussis	Vaccine Preventable Diseases	27836007	Pertussis (disorder)	SNOMEDCT
+Pesticide Related Illness or injury	Toxic Effect of Non-Medicinal Substances 	37131007	Pesticide poisoning (disorder)	SNOMEDCT
+Plague	Zoonotic Diseases	58750007	Plague (disorder)	SNOMEDCT
+Poliovirus Infection	Vaccine Preventable Diseases	398102009	Acute poliomyelitis (disorder)	SNOMEDCT
+Powassan virus disease	Vectorborne Diseases	416707008	Powassan encephalitis virus infection (disorder)	SNOMEDCT
+Psittacosis	Respiratory Conditions (infectious)	75116005	Ornithosis (disorder)	SNOMEDCT
+Q fever	Zoonotic Diseases	186788009	Q fever (disorder)	SNOMEDCT
+Rabies (Human)	Zoonotic Diseases	14168008	Rabies (disorder)	SNOMEDCT
+Respiratory Syncytial Virus (RSV)-Associated Mortality	Respiratory Conditions (infectious)	55735004	Respiratory syncytial virus infection (disorder)	SNOMEDCT
+Rubella	Vaccine Preventable Diseases	36653000	Rubella (disorder)	SNOMEDCT
+S. Paratyphi Infection	Enteric Diseases	85904008	Paratyphoid fever (disorder)	SNOMEDCT
+S. Typhi Infection	Enteric Diseases	4834000	Typhoid fever (disorder)	SNOMEDCT
+Salmonellosis	Enteric Diseases	302231008	Salmonella infection (disorder)	SNOMEDCT
+Severe Acute Respiratory Syndrome (SARS)	Respiratory Conditions (infectious)	398447004	Severe acute respiratory syndrome (disorder)	SNOMEDCT
+Shigellosis	Enteric Diseases	36188001	Shigellosis (disorder)	SNOMEDCT
+Silicosis or pneumoconiosis due to dust containing silica	Respiratory Conditions (non-infectious)	805002	Pneumoconiosis caused by silica (disorder)	SNOMEDCT
+Smallpox	Vaccine Preventable Diseases	67924001	Smallpox (disorder)	SNOMEDCT
+Spotted Fever Rickettsiosis	Vectorborne Diseases	186771002	Spotted fever group rickettsial disease (disorder)	SNOMEDCT
+St. Louis Encephalitis Virus Infection	Vectorborne Diseases	416129000	St. Louis encephalitis virus non-neuroinvasive disease (disorder)	SNOMEDCT
+STEC infection	Enteric Diseases	328291000119103	Infection caused by Shiga toxin producing Escherichia coli (disorder)	SNOMEDCT
+Streptococcal Toxic Shock Syndrome	Toxic Effect of Non-Medicinal Substances 	240451000	Streptococcal toxic shock syndrome (disorder)	SNOMEDCT
+Syphilis	Sexually Transmitted Diseases	76272004	Syphilis (disorder)	SNOMEDCT
+Tetanus	Vaccine Preventable Diseases	76902006	Tetanus (disorder)	SNOMEDCT
+Tickborne relapsing fever (TBRF)	Vectorborne Diseases	10301003	Tick-borne relapsing fever (disorder)	SNOMEDCT
+Trichinellosis	Zoonotic Diseases	709018004	Infection caused by larvae of Trichinella (disorder)	SNOMEDCT
+Tuberculosis	Respiratory Conditions (infectious)	56717001	Tuberculosis (disorder)	SNOMEDCT
+Tularemia	Vectorborne Diseases	19265001	Tularemia (disorder)	SNOMEDCT
+Vancomycin-intermediate Staphylococcus aureus (VISA)	Healthcare-Associated Events	406604002	Infection caused by vancomycin intermediate Staphylococcus aureus (disorder)	SNOMEDCT
+Vancomycin-resistant Staphylococcus aureus (VRSA)	Healthcare-Associated Events	404681006	Infection caused by vancomycin resistant Staphylococcus aureus (disorder) 	SNOMEDCT
+Varicella	Vaccine Preventable Diseases	38907003	Varicella (disorder)	SNOMEDCT
+Vibriosis	Enteric Diseases	398557001	Infection caused by non-cholerae vibrio (disorder)	SNOMEDCT
+Viral Hemorrhagic Fever (VHF)	Zoonotic Diseases	240523007	Viral hemorrhagic fever (disorder)	SNOMEDCT
+West Nile Virus Infection	Vectorborne Diseases	417093003	Disease caused by West Nile virus (disorder)	SNOMEDCT
+Western equine encephalitis virus disease	Vectorborne Diseases	47523006	Western equine encephalitis (disorder) 	SNOMEDCT
+Yellow fever	Vectorborne Diseases	16541001	Yellow fever (disorder)	SNOMEDCT
+Zika Virus Disease	Vectorborne Diseases	3928002	Zika virus disease (disorder)	SNOMEDCT
