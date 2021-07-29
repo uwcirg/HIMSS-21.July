@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-  <link href="app.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>WA State PHA received case report queue</title>
+    <link rel="shortcut icon" type="image/jpg" href="app.ico"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
   <div id="app">
@@ -34,7 +36,7 @@
         dark
         elevation="1"
         >
-            <v-toolbar-title>WA State PHA received case reports</v-toolbar-title>
+            <v-toolbar-title>WA State PHA received case report queue</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-container class="list-container" fluid>
@@ -90,6 +92,16 @@
                         <tr class="filter-row">
                             <td>
                                 <v-text-field
+                                v-model="date_of_report"
+                                type="text"
+                                placeholder="YYYY-MM-DD"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field
                                 v-model="last_name"
                                 type="text"
                                 placeholder="Last Name"
@@ -123,6 +135,36 @@
                                 v-model="gender"
                                 type="text"
                                 placeholder="Gender"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field
+                                v-model="reason_for_report"
+                                type="text"
+                                placeholder="Display Name"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field
+                                v-model="reportable_condition"
+                                type="text"
+                                placeholder="Short Name"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field
+                                v-model="jurisdiction"
+                                type="text"
+                                placeholder="Jurisdiction"
                                 single-line
                                 prepend-icon="mdi-filter"
                                 clearable
@@ -171,31 +213,54 @@
                                 </v-toolbar>
                                 <v-tabs
                                     v-model="tab"
+                                    show-arrows
+                                    slider-size="3"
                                 >
                                     <v-tab
-                                        :key=0
+                                        key="tab_eicr"
                                     >
-                                    Initial Case Report
+                                        <v-icon class="mr-1" color="orange darken-2" v-bind="attrs"
+                                        v-on="on">mdi-file-document</v-icon>
+                                        Initial Case Report
                                     </v-tab>
                                     <v-tab
-                                        :key=1
+                                        key="tab_rr"
                                     >
+                                    <v-icon class="mr-1" color="green" v-bind="attrs"
+                                    v-on="on">mdi-file-document</v-icon>
                                     Reportability Response
+                                    </v-tab>
+                                    <v-tab
+                                        key="tab_data"
+                                    >
+                                    <v-icon class="mr-1" color="blue darken-2" v-bind="attrs"
+                                    v-on="on">mdi-code-tags</v-icon>
+                                    Discrete Data
                                     </v-tab>
                                 </v-tabs>
                                 <v-tabs-items v-model="tab">
                                     <v-tab-item
-                                      :key=0
+                                      key="tab_eicr"
                                     >
                                       <v-card flat>
                                         <div class="eicr-iframe-loader"><iframe :src="activeItem.EICRLink"></iframe></div>
                                       </v-card>
                                     </v-tab-item>
                                     <v-tab-item
-                                      :key=1
+                                      key="tab_rr"
+                                    >
+                                    <v-card flat>
+                                          <div class="rr-iframe-loader"><iframe :src="activeItem.RRLink"></iframe></div>
+                                      </v-card>
+                                    </v-tab-item>
+                                    <v-tab-item
+                                      key="tab_data"
                                     >
                                       <v-card flat>
-                                          <div class="rr-iframe-loader"><iframe :src="activeItem.RRLink"></iframe></div>
+                                          <div class="text-body-1 py-4 px-6">The following elements are immediately parsed from the Care Report and Reportability Response, and can be used to automatically trigger and send data to other public health processes.</div>
+                                          <div class="px-6 mb-2" v-for="(key,index) in Object.keys(activeItem)" :key="key+'_'+index" v-if="inHeaderList(key)">
+                                            <span v-text="getDisplayText(key)" class="font-weight-bold"></span> <span v-text="activeItem[key]"></span>
+                                          </div>
                                       </v-card>
                                     </v-tab-item>
                                 </v-tabs-items>
