@@ -37,9 +37,6 @@ iframe {
 #patientList th label {
     color: #FFF
 }
-/* #patientList tr:nth-child(odd):not(.filter-row) td {
-    border-bottom: 2px solid red;
-} */
 .list-container {
     margin-top: 88px;
     max-width: 1200px;
