@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, redirect
 from ..db import db
 from .models import Patient, RckmsConditionCodes
 
@@ -7,7 +7,7 @@ base_blueprint = Blueprint('base', __name__)
 
 @base_blueprint.route('/')
 def root():
-    return {'ok': True}
+    return redirect('/static/frontend/index.html')
 
 
 @base_blueprint.route('/init-db')
