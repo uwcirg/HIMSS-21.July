@@ -51,6 +51,7 @@
                 :sort-by.sync="sortBy"
                 :loading="loading"
                 loading-text="Loading... Please wait"
+                mobile-breakpoint="768"
                 show-expand
                 :expanded.sync="expanded"
                 >
@@ -61,7 +62,7 @@
                            <div class="content" v-text="item.date_of_report"></div>
                         </td>
                         <td class="collapsible-cell">
-                            <div class="subtitle">Reason</div>
+                            <div class="subtitle">Condition</div>
                             <div class="content" v-text="item.reportable_condition"></div>
                         </td>
                         <td class="collapsible-cell">
@@ -85,7 +86,7 @@
                         </div>
                     </template>
                     <template v-slot:body.prepend>
-                        <tr class="filter-row">
+                        <tr class="v-data-table__expanded v-data-table__expanded__row filter-row">
                             <td></td>
                             <td>
                                 <v-text-field
@@ -211,7 +212,7 @@
                                       key="tab_data"
                                     >
                                       <v-card flat>
-                                          <div class="text-body-1 py-4 px-6">The following elements are immediately parsed from the Care Report and Reportability Response, and can be used to automatically trigger and send data to other public health processes.</div>
+                                          <div class="text-body-1 py-4 px-6">The following elements are immediately parsed from the Care Report and Reportability Response. They are stored as discrete fields in a database, and can be screened to automatically trigger and send data to other public health processes, immediately upon receipt of a new case report.</div>
                                           <div class="px-6 mb-2" v-for="(key,index) in Object.keys(activeItem)" :key="key+'_'+index" v-if="!inExclusionFields(key)">
                                             <span v-text="getDisplayText(key)" class="font-weight-bold field-title"></span> <span v-text="activeItem[key]"></span>
                                           </div>

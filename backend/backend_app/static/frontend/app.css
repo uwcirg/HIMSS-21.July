@@ -93,6 +93,10 @@ header {
     box-shadow: none !important;
     background-color: #fcfbfd;
 }
+#patientList tr:not(.filter-row) .v-icon.v-icon.v-icon--link {
+    border: 1px solid #d3cddf;
+    border-radius: 100%;
+}
 .collapsible-cell .subtitle {
     font-size: 0.75rem;
     font-weight: bold;
@@ -102,4 +106,19 @@ header {
 }
 .field-title {
     text-transform: capitalize;
+}
+
+@media
+only screen and (max-width: 768px),
+(min-device-width: 414px) and (max-device-width: 768px)  {
+    tr.filter-row td:not(:first-of-type) {
+        display: block;
+        height: 72px;
+        width: 100%;
+    }
+    tr.filter-row td:first-of-type:before {
+        content: "Filters";
+        display: block;
+        width: 100%;
+    }
 }
