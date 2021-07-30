@@ -35,7 +35,7 @@
         absolute
         dark
         elevation="1"
-        >
+        >   <v-img src="logo.png" max-width="120" class="mr-4"></v-img>
             <v-toolbar-title>WA State PHA received case report queue</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-app-bar>
@@ -52,25 +52,7 @@
                 :loading="loading"
                 loading-text="Loading... Please wait"
                 mobile-breakpoint="768"
-                show-expand
-                :expanded.sync="expanded"
                 >
-                    <template v-slot:expanded-item="{ headers, item }">
-                        <td></td>
-                        <td class="collapsible-cell">
-                           <div class="subtitle">Date Reported</div>
-                           <div class="content" v-text="item.date_of_report"></div>
-                        </td>
-                        <td class="collapsible-cell">
-                            <div class="subtitle">Condition</div>
-                            <div class="content" v-text="item.reportable_condition"></div>
-                        </td>
-                        <td class="collapsible-cell">
-                            <div class="subtitle">Jurisdiction</div>
-                            <div class="content" v-text="item.jurisdiction"></div>
-                        </td>
-                        <td colspan="3"></td>
-                    </template>
                     <template v-slot:item.link="{ item }">
                         <div class="buttons-container">
                             <v-btn
@@ -86,8 +68,27 @@
                         </div>
                     </template>
                     <template v-slot:body.prepend>
-                        <tr class="v-data-table__expanded v-data-table__expanded__row filter-row">
-                            <td></td>
+                        <tr class="filter-row">
+                            <td>
+                                <v-text-field
+                                v-model="date_of_report"
+                                type="text"
+                                placeholder="YYYY-MM-DD"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field
+                                v-model="reportable_condition"
+                                type="text"
+                                placeholder="Condition"
+                                single-line
+                                prepend-icon="mdi-filter"
+                                clearable
+                                ></v-text-field>
+                            </td>
                             <td>
                                 <v-text-field
                                 v-model="last_name"
@@ -116,16 +117,7 @@
                                 single-line
                                 prepend-icon="mdi-filter"
                                 clearable
-                                ></v-text-field>
-                            </td>
-                            <td>
-                                <v-text-field
-                                v-model="gender"
-                                type="text"
-                                placeholder="Gender"
-                                single-line
-                                prepend-icon="mdi-filter"
-                                clearable
+                                class="dob-filter-field"
                                 ></v-text-field>
                             </td>
                             <td class="link-cell"></td>
