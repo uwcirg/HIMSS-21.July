@@ -213,9 +213,10 @@
                                     >
                                       <v-card flat>
                                           <div class="text-body-1 py-4 px-6">The following elements are immediately parsed from the Care Report and Reportability Response. They are stored as discrete fields in a database, and can be screened to automatically trigger and send data to other public health processes, immediately upon receipt of a new case report.</div>
-                                          <div class="px-6 mb-2" v-for="(key,index) in Object.keys(activeItem)" :key="key+'_'+index" v-if="!inExclusionFields(key)">
-                                            <span v-text="getDisplayText(key)" class="font-weight-bold field-title"></span> <span v-text="activeItem[key]"></span>
+                                          <div class="px-6 mb-2" v-for="(item,index) in discreteDataFields" v-if="item !== 'separator'" :key="item">
+                                            <span v-text="getDisplayText(item)" class="font-weight-bold field-title"></span> <span v-text="activeItem[item]"></span>
                                           </div>
+                                          <v-divider class="my-6 mx-4" v-else></v-divider>
                                       </v-card>
                                     </v-tab-item>
                                 </v-tabs-items>
