@@ -176,8 +176,8 @@ new Vue({
             });
             if (!matchedField.length) {
                 if (key === "date_of_report") return "Date Reported";
-                if (key === "reason_for_report") return "Reason (Complete)";
-                if (key === "reportable_condition") return "Reason";
+                if (key === "reason_for_report") return "Condition (Full Description)";
+                if (key === "reportable_condition") return "Condition";
                 return String(key).replace(/_/g, " ");
             }
             return matchedField[0].text;
