@@ -30,10 +30,10 @@ new Vue({
                 first_name: "",
                 last_name: "",
                 birthdate: "",
-                gender: "",
                 reason_for_report: "",
                 reportable_condition: "",
-                jurisdiction: ""
+                EICRLink: "",
+                RRLink: ""
             },
             search: '',
             date_of_report: "",
@@ -48,9 +48,27 @@ new Vue({
             sortBy: 'date_of_report',
             excludeFields: ["address", "city", "doc_id", "ethnicity", "id", "phone", "provider", "race", "state", "zip", "uuid", "EICRLink", "RRLink", "link"],
             discreteDataFields: [
-                "date_of_report", "reportable_condition", "reason_for_report", "separator", "last_name", "first_name","gender"
+                "date_of_report", "reportable_condition", "reason_for_report", "separator", "last_name", "first_name","birthdate", "gender"
             ],
             headers: [
+                {
+                    "text": "Date Reported",
+                    "value": "date_of_report",
+                    filter: value => {
+                        if (!this.date_of_report) return true;
+                        return String(value).toLowerCase().indexOf(String(this.last_name).toLowerCase()) >= 0;
+                    },
+                    "align": "center"
+                },
+                {
+                    "text": "Condition",
+                    "value": "reportable_condition",
+                    filter: value => {
+                        if (!this.reportable_condition) return true;
+                        return String(value).toLowerCase().indexOf(String(this.reportable_condition).toLowerCase()) >= 0;
+                    },
+                    "align": "center"
+                },
                 {
                     "text": "Last Name",
                     "value": "last_name",
@@ -75,15 +93,6 @@ new Vue({
                     filter: value => {
                         if (!this.birthdate) return true;
                         return String(value).toLowerCase().indexOf(String(this.birthdate).toLowerCase()) >= 0;
-                    },
-                    "align": "center"
-                },
-                {
-                    "text": "Gender",
-                    "value": "gender",
-                    filter: value => {
-                        if (!this.gender) return true;
-                        return String(value).toLowerCase() === String(this.gender).toLowerCase();
                     },
                     "align": "center"
                 },

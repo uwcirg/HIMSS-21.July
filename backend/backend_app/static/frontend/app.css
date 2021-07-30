@@ -107,14 +107,23 @@ header {
 .field-title {
     text-transform: capitalize;
 }
+.dob-filter-field {
+    width: 100%;
+}
+@media (min-width: 1140px) {
+    .dob-filter-field {
+        max-width: calc(100% - 32px);
+    }
+}
 
 @media
-only screen and (max-width: 768px),
-(min-device-width: 414px) and (max-device-width: 768px)  {
+only screen and (max-width: 767px),
+(min-device-width: 414px) and (max-device-width: 767px)  {
     tr.filter-row td:not(:first-of-type) {
         display: block;
         height: 72px;
         width: 100%;
+        max-width: 100%;
     }
     tr.filter-row td:first-of-type:before {
         content: "Filters";
