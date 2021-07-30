@@ -47,6 +47,9 @@ new Vue({
             loading: false,
             sortBy: 'date_of_report',
             excludeFields: ["address", "city", "doc_id", "ethnicity", "id", "phone", "provider", "race", "state", "zip", "uuid", "EICRLink", "RRLink", "link"],
+            discreteDataFields: [
+                "date_of_report", "reportable_condition", "reason_for_report", "separator", "last_name", "first_name","gender"
+            ],
             headers: [
                 {
                     "text": "Last Name",
