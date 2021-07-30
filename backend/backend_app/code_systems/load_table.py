@@ -14,7 +14,7 @@ def parse_rckms_input():
     with open("pwd_check", 'w') as out:
         out.write("dummy file to help debug deployed path issues")
 
-    with open("code_systems/RCKMS_condition_codes.tdv", 'r') as input:
+    with open("backend_app/code_systems/RCKMS_condition_codes.tdv", 'r') as input:
         code_reader = csv.DictReader(input, delimiter='\t')
         for row in code_reader:
             results.append(dict(row))
