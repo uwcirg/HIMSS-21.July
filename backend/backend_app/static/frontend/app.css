@@ -89,3 +89,17 @@ header {
 .v-slide-group__wrapper {
     border-bottom: 1px solid #ececec;
 }
+.v-data-table>.v-data-table__wrapper tbody tr.v-data-table__expanded__content {
+    box-shadow: none !important;
+    background-color: #fcfbfd;
+}
+.collapsible-cell .subtitle {
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+.collapsible-cell {
+    text-align: center;
+}
+.field-title {
+    text-transform: capitalize;
+}

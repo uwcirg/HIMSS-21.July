@@ -51,31 +51,27 @@
                 :sort-by.sync="sortBy"
                 :loading="loading"
                 loading-text="Loading... Please wait"
+                show-expand
+                :expanded.sync="expanded"
                 >
+                    <template v-slot:expanded-item="{ headers, item }">
+                        <td></td>
+                        <td class="collapsible-cell">
+                           <div class="subtitle">Date Reported</div>
+                           <div class="content" v-text="item.date_of_report"></div>
+                        </td>
+                        <td class="collapsible-cell">
+                            <div class="subtitle">Reason</div>
+                            <div class="content" v-text="item.reportable_condition"></div>
+                        </td>
+                        <td class="collapsible-cell">
+                            <div class="subtitle">Jurisdiction</div>
+                            <div class="content" v-text="item.jurisdiction"></div>
+                        </td>
+                        <td colspan="3"></td>
+                    </template>
                     <template v-slot:item.link="{ item }">
                         <div class="buttons-container">
-                            <!-- <v-btn
-                            color="primary"
-                            class="btn"
-                            dark
-                            small
-                            rounded
-                            :href="item.EICRLink"
-                            target="_blank"
-                            >
-                            eICR
-                            </v-btn>
-                            <v-btn
-                            color="primary"
-                            class="btn"
-                            dark
-                            small
-                            rounded
-                            :href="item.RRLink"
-                            target="_blank"
-                            >
-                            RR
-                            </v-btn> -->
                             <v-btn
                             color="primary"
                             class="btn"
@@ -90,16 +86,7 @@
                     </template>
                     <template v-slot:body.prepend>
                         <tr class="filter-row">
-                            <td>
-                                <v-text-field
-                                v-model="date_of_report"
-                                type="text"
-                                placeholder="YYYY-MM-DD"
-                                single-line
-                                prepend-icon="mdi-filter"
-                                clearable
-                                ></v-text-field>
-                            </td>
+                            <td></td>
                             <td>
                                 <v-text-field
                                 v-model="last_name"
@@ -135,36 +122,6 @@
                                 v-model="gender"
                                 type="text"
                                 placeholder="Gender"
-                                single-line
-                                prepend-icon="mdi-filter"
-                                clearable
-                                ></v-text-field>
-                            </td>
-                            <td>
-                                <v-text-field
-                                v-model="reason_for_report"
-                                type="text"
-                                placeholder="Display Name"
-                                single-line
-                                prepend-icon="mdi-filter"
-                                clearable
-                                ></v-text-field>
-                            </td>
-                            <td>
-                                <v-text-field
-                                v-model="reportable_condition"
-                                type="text"
-                                placeholder="Short Name"
-                                single-line
-                                prepend-icon="mdi-filter"
-                                clearable
-                                ></v-text-field>
-                            </td>
-                            <td>
-                                <v-text-field
-                                v-model="jurisdiction"
-                                type="text"
-                                placeholder="Jurisdiction"
                                 single-line
                                 prepend-icon="mdi-filter"
                                 clearable
@@ -219,22 +176,19 @@
                                     <v-tab
                                         key="tab_eicr"
                                     >
-                                        <v-icon class="mr-1" color="orange darken-2" v-bind="attrs"
-                                        v-on="on">mdi-file-document</v-icon>
+                                        <v-icon class="mr-1" color="orange darken-2">mdi-file-document</v-icon>
                                         Initial Case Report
                                     </v-tab>
                                     <v-tab
                                         key="tab_rr"
                                     >
-                                    <v-icon class="mr-1" color="green" v-bind="attrs"
-                                    v-on="on">mdi-file-document</v-icon>
+                                    <v-icon class="mr-1" color="green">mdi-file-document</v-icon>
                                     Reportability Response
                                     </v-tab>
                                     <v-tab
                                         key="tab_data"
                                     >
-                                    <v-icon class="mr-1" color="blue darken-2" v-bind="attrs"
-                                    v-on="on">mdi-code-tags</v-icon>
+                                    <v-icon class="mr-1" color="blue darken-2">mdi-code-tags</v-icon>
                                     Discrete Data
                                     </v-tab>
                                 </v-tabs>
@@ -258,8 +212,8 @@
                                     >
                                       <v-card flat>
                                           <div class="text-body-1 py-4 px-6">The following elements are immediately parsed from the Care Report and Reportability Response, and can be used to automatically trigger and send data to other public health processes.</div>
-                                          <div class="px-6 mb-2" v-for="(key,index) in Object.keys(activeItem)" :key="key+'_'+index" v-if="inHeaderList(key)">
-                                            <span v-text="getDisplayText(key)" class="font-weight-bold"></span> <span v-text="activeItem[key]"></span>
+                                          <div class="px-6 mb-2" v-for="(key,index) in Object.keys(activeItem)" :key="key+'_'+index" v-if="!inExclusionFields(key)">
+                                            <span v-text="getDisplayText(key)" class="font-weight-bold field-title"></span> <span v-text="activeItem[key]"></span>
                                           </div>
                                       </v-card>
                                     </v-tab-item>

@@ -24,11 +24,16 @@ new Vue({
             initialized: false,
             alert: false,
             dialog: false,
+            expanded: [],
             tab: "tab_eicr",
             activeItem: {
                 first_name: "",
                 last_name: "",
-                birthdate: ""
+                birthdate: "",
+                gender: "",
+                reason_for_report: "",
+                reportable_condition: "",
+                jurisdiction: ""
             },
             search: '',
             date_of_report: "",
@@ -41,16 +46,8 @@ new Vue({
             jurisdiction: "",
             loading: false,
             sortBy: 'date_of_report',
+            excludeFields: ["address", "city", "doc_id", "ethnicity", "id", "phone", "provider", "race", "state", "zip", "uuid", "EICRLink", "RRLink", "link"],
             headers: [
-                {
-                    "text": "Date Reported",
-                    "value": "date_of_report",
-                    filter: value => {
-                        if (!this.date_of_report) return true;
-                        return String(value).toLowerCase().indexOf(String(this.date_of_report).toLowerCase()) >= 0;
-                    },
-                    "align": "center"
-                },
                 {
                     "text": "Last Name",
                     "value": "last_name",
@@ -84,33 +81,6 @@ new Vue({
                     filter: value => {
                         if (!this.gender) return true;
                         return String(value).toLowerCase() === String(this.gender).toLowerCase();
-                    },
-                    "align": "center"
-                },
-                {
-                    "text": "Display Name",
-                    "value": "reason_for_report",
-                    filter: value => {
-                        if (!this.reason_for_report) return true;
-                        return String(value).toLowerCase().indexOf(String(this.reason_for_report).toLowerCase()) >= 0;
-                    },
-                    "align": "center"
-                },
-                {
-                    "text": "Short Name",
-                    "value": "reportable_condition",
-                    filter: value => {
-                        if (!this.reportable_condition) return true;
-                        return String(value).toLowerCase().indexOf(String(this.reportable_condition).toLowerCase()) >= 0;
-                    },
-                    "align": "center"
-                },
-                {
-                    "text": "Jurisdiction Reported",
-                    "value": "jurisdiction",
-                    filter: value => {
-                        if (!this.jurisdiction) return true;
-                        return String(value).toLowerCase().indexOf(String(this.jurisdiction).toLowerCase()) >= 0;
                     },
                     "align": "center"
                 },
@@ -149,6 +119,9 @@ new Vue({
                         item["date_of_report"] = self.formatDate(item["date_of_report"]);
                         return item;
                     });
+                    self.expanded = responseObj.patients.map(function(item, index) {
+                        return item;
+                    })
                 }
                 //console.log("self.results ", self.results)
             }
@@ -189,6 +162,9 @@ new Vue({
             this.tab = "tab_eicr";
             this.dialog = false;
         },
+        inExclusionFields: function(key) {
+            return key !== "View Reports" && this.excludeFields.indexOf(key) !== -1;
+        },
         inHeaderList: function(key) {
             return this.headers.filter(function(item) {
                 return !item.complexType && String(item.value) === String(key);
@@ -198,7 +174,12 @@ new Vue({
             var matchedField = this.headers.filter(function(item) {
                 return String(item.value) === String(key);
             });
-            if (!matchedField.length) return "";
+            if (!matchedField.length) {
+                if (key === "date_of_report") return "Date Reported";
+                if (key === "reason_for_report") return "Reason (Complete)";
+                if (key === "reportable_condition") return "Reason";
+                return String(key).replace(/_/g, " ");
+            }
             return matchedField[0].text;
         },
         sendRequest: function(url, params) {
