@@ -35,8 +35,9 @@
         absolute
         dark
         elevation="1"
-        >   <v-img src="logo.png" max-width="120" class="mr-4"></v-img>
-            <v-toolbar-title>WA State PHA received case report queue</v-toolbar-title>
+        height=96
+        >   <v-img src="logo.png" max-width="160" class="mr-4"></v-img>
+            <v-toolbar-title>Received Case Report Queue</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-container class="list-container" fluid>
@@ -45,7 +46,7 @@
                 id="patientList"
                 :headers="headers"
                 :items="results"
-                :items-per-page="5"
+                :items-per-page="-1"
                 :search="search"
                 class="elevation-1"
                 :sort-by.sync="sortBy"
@@ -73,10 +74,11 @@
                                 <v-text-field
                                 v-model="date_of_report"
                                 type="text"
-                                placeholder="YYYY-MM-DD"
+                                placeholder="YYYY-MM-DD HH:MM"
                                 single-line
                                 prepend-icon="mdi-filter"
                                 clearable
+                                class="report-date-filter-field"
                                 ></v-text-field>
                             </td>
                             <td>

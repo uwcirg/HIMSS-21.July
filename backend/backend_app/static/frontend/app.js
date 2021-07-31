@@ -56,7 +56,7 @@ new Vue({
                     "value": "date_of_report",
                     filter: value => {
                         if (!this.date_of_report) return true;
-                        return String(value).toLowerCase().indexOf(String(this.last_name).toLowerCase()) >= 0;
+                        return String(value).toLowerCase().indexOf(String(this.date_of_report).toLowerCase()) >= 0;
                     },
                     "align": "center"
                 },
@@ -128,7 +128,7 @@ new Vue({
                         //item["EICRLink"] = "./data/eICR.html";
                         //item["RRLink"] = "./data/RR.html";
                         item["birthdate"] = self.formatDate(item["birthdate"]);
-                        item["date_of_report"] = self.formatDate(item["date_of_report"]);
+                        item["date_of_report"] = self.formatDate(item["date_of_report"], true);
                         return item;
                     });
                     self.expanded = responseObj.patients.map(function(item, index) {
@@ -159,12 +159,14 @@ new Vue({
             }
             this.alert = false;
         },
-        formatDate: function(string) {
+        formatDate: function(string, includeTime) {
             if (!string) return "";
             var year = string.substr(0, 4);
             var month = string.substr(4, 2);
             var day = string.substr(6, 2);
-            return year+"-"+month+"-"+day;
+            var dateString = year+"-"+month+"-"+day;
+            if (includeTime) dateString += " "+string.substr(8, 2)+":"+string.substr(10, 2);
+            return dateString;
         },
         viewActiveItem: function(item) {
             this.activeItem = Object.assign({}, item);
