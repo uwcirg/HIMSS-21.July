@@ -1,6 +1,9 @@
 html {
     font-size: 18px;
 }
+header {
+    background-color: #37516A !important;
+}
 iframe {
     width: 100%;
     min-height: calc(100vh - 136px);
@@ -27,8 +30,16 @@ iframe {
     margin-right: 24px;
 }
 #patientList th {
-    background-color: #673ab7;
-    color: #FFF;
+    background-color: #F8F8F8 !important;
+    color: #5D6B86 !important;
+}
+.alert-info {
+    color: #235067;
+    background-color: #EEF7FC;
+    border: 1px solid #bce8f1;
+}
+.tabs-bar {
+    border-top: 1px solid #F8F8F8 !important;
 }
 #patientList th i {
     color: #FFF;
@@ -74,6 +85,12 @@ header {
     padding-right: 24px !important;
     padding-left: 24px !important;
     text-transform: initial;
+}
+.v-tab--active {
+    color: #718D39 !important;
+}
+.v-tab--active:before {
+    background-color: #718D39!important;
 }
 .v-toolbar__title {
     padding-left: 8px !important;

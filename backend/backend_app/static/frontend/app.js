@@ -3,10 +3,10 @@ var appTheme = {
     themes: {
         light: {
             base: "#37353a",
-            primary: '#673ab7',
-            secondary: '#4527a0',
-            tertiary: '#b39ddb',
-            accent: '#512da8',
+            primary: '#5D6B86',
+            secondary: '#718D39',
+            accent: '#F8F8F8',
+            bgColor: '#37516A'
         }
     }
 };
@@ -35,6 +35,15 @@ new Vue({
                 EICRLink: "",
                 RRLink: ""
             },
+            defaultItem: {
+                first_name: "",
+                last_name: "",
+                birthdate: "",
+                reason_for_report: "",
+                reportable_condition: "",
+                EICRLink: "",
+                RRLink: ""
+            },
             search: '',
             date_of_report: "",
             first_name: "",
@@ -47,8 +56,11 @@ new Vue({
             loading: false,
             sortBy: 'date_of_report',
             excludeFields: ["address", "city", "doc_id", "ethnicity", "id", "phone", "provider", "race", "state", "zip", "uuid", "EICRLink", "RRLink", "link"],
+            demoDataFields: [
+                "last_name", "first_name","birthdate", "gender"
+            ],
             discreteDataFields: [
-                "date_of_report", "reportable_condition", "reason_for_report", "separator", "last_name", "first_name","birthdate", "gender"
+                "date_of_report", "reportable_condition", "reason_for_report"
             ],
             headers: [
                 {
@@ -169,12 +181,19 @@ new Vue({
             return dateString;
         },
         viewActiveItem: function(item) {
-            this.activeItem = Object.assign({}, item);
+            var self = this;
+            this.$nextTick(function() {
+                self.activeItem = Object.assign({}, item);
+            });
             this.dialog = true;
         },
         closeDialog: function() {
             this.tab = "tab_eicr";
             this.dialog = false;
+            var self = this;
+            this.$nextTick(function() {
+                self.activeItem = Object.assign({}, this.defaultItem);
+            })
         },
         inExclusionFields: function(key) {
             return key !== "View Reports" && this.excludeFields.indexOf(key) !== -1;

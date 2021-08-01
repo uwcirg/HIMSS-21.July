@@ -36,8 +36,9 @@
         dark
         elevation="1"
         height=96
-        >   <v-img src="logo.png" max-width="160" class="mr-4"></v-img>
-            <v-toolbar-title>Received Case Report Queue</v-toolbar-title>
+        color="bgColor"
+        >   <v-img src="logo.gif" max-width="160" class="mr-4"></v-img>
+            <v-toolbar-title class="white--text">Received Case Report Queue</v-toolbar-title>
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-container class="list-container" fluid>
@@ -134,16 +135,18 @@
                             <v-card>
                                 <v-toolbar
                                 dark
-                                color="primary"
+                                color="accent"
+                                class="modal-toolbar"
                                 >
                                 <v-btn
                                         icon
                                         dark
+                                        class="primary--text"
                                         @click="dialog = false"
                                     >
                                         <v-icon>mdi-close</v-icon>
                                     </v-btn>
-                                    <v-toolbar-title class="white--text">
+                                    <v-toolbar-title class="primary--text">
                                         <div class="title-container">
                                             <h4 class="item" v-text="activeItem.last_name + ', ' + activeItem.first_name"></h4>
                                             <div class="item">
@@ -157,6 +160,7 @@
                                         <v-btn
                                         dark
                                         text
+                                        class="primary--text"
                                         @click="dialog = false"
                                         >
                                         Back to List >>
@@ -167,7 +171,9 @@
                                     v-model="tab"
                                     show-arrows
                                     slider-size="3"
+                                    class="tabs-bar"
                                 >
+                                    <v-tabs-slider color="secondary"></v-tabs-slider>
                                     <v-tab
                                         key="tab_eicr"
                                     >
@@ -206,11 +212,18 @@
                                       key="tab_data"
                                     >
                                       <v-card flat>
-                                          <div class="text-body-1 py-4 px-6">The following elements are immediately parsed from the Care Report and Reportability Response. They are stored as discrete fields in a database, and can be screened to automatically trigger and send data to other public health processes, immediately upon receipt of a new case report.</div>
-                                          <div class="px-6 mb-2" v-for="(item,index) in discreteDataFields" v-if="item !== 'separator'" :key="item">
-                                            <span v-text="getDisplayText(item)" class="font-weight-bold field-title"></span> <span v-text="activeItem[item]"></span>
-                                          </div>
-                                          <v-divider class="my-6 mx-4" v-else></v-divider>
+                                            <div class="text-body-1 py-4 px-6">The following elements are immediately parsed from the Care Report and Reportability Response. They are stored as discrete fields in a database, and can be screened to automatically trigger and send data to other public health processes, immediately upon receipt of a new case report.</div>
+                                            <div class="alert-info mx-6 py-2 pt-4">
+                                                <div class="px-6 mb-2" v-for="(item,index) in discreteDataFields" :key="item">
+                                                    <span v-text="getDisplayText(item)" class="font-weight-bold field-title"></span> <span v-text="activeItem[item]"></span>
+                                                </div>
+                                            </div>
+                                            <v-divider class="mt-6 mx-6 mb-4"></v-divider>
+                                            <div class="alert-info mx-6 mt-6 pt-4 pb-2">
+                                                <div class="px-6 mb-2" v-for="(item,index) in demoDataFields" :key="item">
+                                                    <span v-text="getDisplayText(item)" class="font-weight-bold field-title"></span> <span v-text="activeItem[item]"></span>
+                                                </div>
+                                            </div>
                                       </v-card>
                                     </v-tab-item>
                                 </v-tabs-items>
