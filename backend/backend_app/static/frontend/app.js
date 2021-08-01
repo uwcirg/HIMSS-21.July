@@ -54,6 +54,8 @@ new Vue({
             reportable_condition: "",
             jurisdiction: "",
             loading: false,
+            eicrViewerLoaded: false,
+            rrViewerLoaded: false,
             sortBy: 'date_of_report',
             excludeFields: ["address", "city", "doc_id", "ethnicity", "id", "phone", "provider", "race", "state", "zip", "uuid", "EICRLink", "RRLink", "link"],
             demoDataFields: [

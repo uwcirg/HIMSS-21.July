@@ -10,6 +10,14 @@ iframe {
     border: 0;
     margin-top: 16px;
 }
+.iframe-loader {
+    position: relative;
+}
+.iframe-loader .loading-indicator {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
 .loader {
     position: fixed;
     z-index: 999;
@@ -21,8 +29,8 @@ iframe {
 }
 .loader .icon {
     position: absolute;
-    left: calc(50% - 16px);
-    top: calc(45% - 16px);
+    left: calc(50% - 20px);
+    top: calc(45% - 20px);
 }
 .alert {
     margin-top: 120px;
@@ -79,6 +87,9 @@ header {
 }
 .v-btn, .btn {
     text-transform: initial !important;
+}
+.v-dialog--fullscreen>.v-card {
+    border-radius: 0 !important;
 }
 .v-tab {
     padding-right: 24px !important;
