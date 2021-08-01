@@ -188,6 +188,8 @@ new Vue({
                 self.activeItem = Object.assign({}, item);
             });
             this.dialog = true;
+            this.eicrViewerLoaded = false;
+            this.rrViewerLoaded = false;
         },
         closeDialog: function() {
             this.tab = "tab_eicr";
