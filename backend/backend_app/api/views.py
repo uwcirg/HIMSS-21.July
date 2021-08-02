@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect
+from flask import Blueprint, redirect, session
 from ..db import db
 from .models import Patient, RckmsConditionCodes
 
@@ -8,6 +8,12 @@ base_blueprint = Blueprint('base', __name__)
 @base_blueprint.route('/')
 def root():
     return redirect('/static/frontend/index.html')
+
+
+@base_blueprint.route('/logout')
+def logout():
+    session.clear()
+    return 'You are now logged out. <a href="/">Click here to log back in.</a>'
 
 
 @base_blueprint.route('/init-db')
