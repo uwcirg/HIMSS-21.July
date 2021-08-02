@@ -5,18 +5,18 @@ from ..db import db
 from .models import Patient, RckmsConditionCodes
 
 base_blueprint = Blueprint('base', __name__)
+FRONTEND = '/static/frontend/index.html'
 
 
 @base_blueprint.route('/')
 def root():
-    return redirect('/static/frontend/index.html')
+    return redirect(FRONTEND)
 
 
 @base_blueprint.route('/logout')
 def logout():
     session.clear()
-    resp = make_response(
-        'You are now logged out. <a href="/">Click here to log back in.</a>')
+    resp = make_response(redirect(FRONTEND))
     resp.set_cookie('mod_auth_openidc_session', '', expires=0)
     return resp
 
