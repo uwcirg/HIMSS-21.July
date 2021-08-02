@@ -20,12 +20,15 @@ new Vue({
   data: function() {
     return {
             apiURL: API_BASE_URL + "/Patient",
+            userinfoURL: API_BASE_URL + "/REMOTE_USER",
+            //userinfoURL: "./data/REMOTE_USER.json", mock data
             //apiURL: "./data/data.json", //for mock data
             initialized: false,
             alert: false,
             dialog: false,
             expanded: [],
             tab: "tab_eicr",
+            loggedInUser: "",
             activeItem: {
                 first_name: "",
                 last_name: "",
@@ -128,6 +131,7 @@ new Vue({
         }
     },
     mounted: function() {
+        this.setUserInfo();
         var self = this;
         self.sendRequest(this.apiURL).then(function(response) {
             if (response) {
@@ -165,6 +169,16 @@ new Vue({
         });
     },
     methods: {
+        setUserInfo: function() {
+            var self = this;
+            this.sendRequest(this.userinfoURL).then(function(response) {
+                if (!response) return false;
+                var userData = JSON.parse(response);
+                if (userData["REMOTE_USER"]) {
+                    self.loggedInUser = userData["REMOTE_USER"];
+                }
+            });
+        },
         setError: function(message) {
             if (message) {
                 this.errorMessage = message;

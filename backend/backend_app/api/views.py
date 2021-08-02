@@ -1,4 +1,6 @@
-from flask import Blueprint, make_response, redirect, session
+from flask import Blueprint, jsonify, make_response, redirect, session
+from os import getenv
+
 from ..db import db
 from .models import Patient, RckmsConditionCodes
 
@@ -60,3 +62,8 @@ def rckms_codes():
             'condition': rcc.condition
         })
     return {'RCKMS_ConditionCodes': codes}
+
+
+@base_blueprint.route('/REMOTE_USER')
+def remote_user():
+    return jsonify(REMOTE_USER=getenv('REMOTE_USER', None))

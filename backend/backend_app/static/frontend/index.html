@@ -41,7 +41,10 @@
         >   <v-img src="logo.gif" max-width="160" class="mr-4"></v-img>
             <v-toolbar-title class="white--text">Received Case Report Queue</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn class="white primary--text" rounded @click="logout">Log out</v-btn>
+            <div class="info-container text-right">
+                <div class="text-body-2 white--text mb-2" v-if="loggedInUser">Logged in as <span v-text="loggedInUser"></span></div>
+                <v-btn class="white primary--text" rounded @click="logout">Log out</v-btn>
+            </div>
         </v-app-bar>
         <v-container class="list-container" fluid>
             <v-card>
