@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, session
+from flask import Blueprint, make_response, redirect, session
 from ..db import db
 from .models import Patient, RckmsConditionCodes
 
@@ -13,7 +13,10 @@ def root():
 @base_blueprint.route('/logout')
 def logout():
     session.clear()
-    return 'You are now logged out. <a href="/">Click here to log back in.</a>'
+    resp = make_response(
+        'You are now logged out. <a href="/">Click here to log back in.</a>')
+    resp.set_cookie('mod_auth_openidc_session', '', expires=0)
+    return resp
 
 
 @base_blueprint.route('/init-db')
