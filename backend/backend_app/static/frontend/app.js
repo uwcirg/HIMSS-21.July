@@ -1,3 +1,4 @@
+//framework used, see here:  https://vuetifyjs.com/en/
 // app theme colors
 var appTheme = {
     themes: {
@@ -61,9 +62,11 @@ new Vue({
             rrViewerLoaded: false,
             sortBy: 'date_of_report',
             excludeFields: ["address", "city", "doc_id", "ethnicity", "id", "phone", "provider", "race", "state", "zip", "uuid", "EICRLink", "RRLink", "link"],
+            //display in discrete tab
             demoDataFields: [
-                "last_name", "first_name","birthdate", "gender"
+                "last_name", "first_name","birthdate", "gender", "race", "ethnicity", "phone", "provider"
             ],
+            //display in discrete tab
             discreteDataFields: [
                 "date_of_report", "reportable_condition", "reason_for_report"
             ],
@@ -147,6 +150,7 @@ new Vue({
                         //item["RRLink"] = "./data/RR.html";
                         item["birthdate"] = self.formatDate(item["birthdate"]);
                         item["date_of_report"] = self.formatDate(item["date_of_report"], true);
+                        item["phone"] = item["phone"] ? String(item["phone"]).replace("tel:", "") : "";
                         return item;
                     });
                     self.expanded = responseObj.patients.map(function(item, index) {

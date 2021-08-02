@@ -46,6 +46,16 @@ iframe {
     background-color: #EEF7FC;
     border: 1px solid #bce8f1;
 }
+@media (min-width: 768px) {
+    .alert-info.contained {
+        display: flex;
+        height: 148px;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+}
 .tabs-bar {
     border-top: 1px solid #F8F8F8 !important;
 }
