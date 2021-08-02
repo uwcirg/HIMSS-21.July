@@ -131,6 +131,7 @@
                             <td class="link-cell"></td>
                         </tr>
                       </template>
+                      <!-- modal for display eiCR viewer && RR viewer -->
                       <template v-slot:top>
                         <v-dialog
                         v-model="dialog"
@@ -242,7 +243,7 @@
                                                 </div>
                                             </div>
                                             <v-divider class="mt-6 mx-6 mb-4"></v-divider>
-                                            <div class="alert-info mx-6 mt-6 pt-4 pb-2">
+                                            <div class="alert-info contained mx-6 my-6 pt-4 pb-2">
                                                 <div class="px-6 mb-2" v-for="(item,index) in demoDataFields" :key="item">
                                                     <span v-text="getDisplayText(item)" class="font-weight-bold field-title"></span> <span v-text="activeItem[item]"></span>
                                                 </div>
