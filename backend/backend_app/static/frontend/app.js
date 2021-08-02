@@ -207,6 +207,9 @@ new Vue({
                 return !item.complexType && String(item.value) === String(key);
             }).length > 0;
         },
+        logout: function() {
+            window.location = "https://keycloak.cirg.washington.edu/auth/realms/ECR-WA-Notify/protocol/openid-connect/logout?redirect_uri=https%3A%2F%2Fecr.wanotify.uw.edu%2Flogout";
+        },
         getDisplayText: function(key) {
             var matchedField = this.headers.filter(function(item) {
                 return String(item.value) === String(key);
