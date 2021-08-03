@@ -24,9 +24,12 @@ def test_parse_names(simple_xml):
     assert results['city'] == 'Renton'
     assert results['state'] == 'WA'
     assert results['zip'] == '98006-1234'
-    assert results['phone'] == '206-123-4567'
-    assert results['race'] == 'UNK'
-    assert results['ethnicity'] == 'UNK'
+    assert results['telecom']['use'] == 'tele:'
+    assert results['telecom']['value'] == '206-123-4567'
+    assert results['raceCode']['code'] == '2054-5'
+    assert results['raceCode']['displayName'] == 'Black or African American'
+    assert results['ethnicGroupCode']['code'] == '2186-5'
+    assert results['ethnicGroupCode']['displayName'] == 'Not Hispanic or Latino'
     assert results['reportable_condition'] == (
         'Disease caused by severe acute respiratory syndrome coronavirus 2 (disorder)')
     assert results['jurisdiction'] == 'WA'
