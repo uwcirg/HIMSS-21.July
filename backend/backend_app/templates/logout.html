@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>Logout</title>
     <style>
+        header {
+            background-color: #37516A !important;
+        }
         .title {
             margin-left: 40px;
             margin-top: 40px;
         }
+        main {
+            margin-top: 80px
+        }
     </style>
     <script>window.addEventListener('load', (event) => {
-        //5 second delay
         setTimeout(() => {
             window.location = "/";
-        }, 5000);
+        }, 1000);
       });</script>
 </head>
 <body>
-    <h2 class="title">You have been logged out. Redirecting...</h2>
+    <div id="app">
+        <v-app>
+            <v-app-bar
+            absolute
+            dark
+            elevation="1"
+            height=96
+            >   <v-img src="/static/frontend/logo.gif" max-width="160" class="mr-4"></v-img>
+                <v-toolbar-title class="white--text font-weight-bold">Received Case Report Queue</v-toolbar-title>
+                <v-spacer></v-spacer>
+            </v-app-bar>
+            <v-main>
+                <h2 class="title">You've been logged out. <a href="/">Here's the login screen</a>....</h2>
+            </v-main>
+        </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="/static/frontend/app.js"></script>
 </body>
 </html>
