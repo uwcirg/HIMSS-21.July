@@ -21,18 +21,28 @@ class SimpleParser(object):
                 return found[0].get(attribute)
             return found[0]
 
-    def _child_items(self, xpath):
-        results = {}
+    def _child_items(self, xpath, as_list=False):
         node = self.tree.xpath(xpath, namespaces=self.namespaces)
         if not node:
             return
 
-        for child in node[0]:
-            # strip namespace from tag
-            tag = child.tag
-            close_namespace_index = tag.find('}')
-            tag = tag[close_namespace_index+1:]
-            results[tag] = child.text
+        def child_items(node):
+            items = {}
+            for child in node:
+                # strip namespace from tag
+                tag = child.tag
+                close_namespace_index = tag.find('}')
+                tag = tag[close_namespace_index + 1:]
+                items[tag] = child.text
+            return items
+
+        if as_list:
+            results = []
+            for item in node:
+                results.append(child_items(item))
+        else:
+            results = child_items(node[0])
+
         return results or None
 
     def address(self):
@@ -53,7 +63,7 @@ class SimpleParser(object):
 
     def telecom(self):
         xpath = "//n:patient/n:telecommunications/n:telecom"
-        return self._child_items(xpath)
+        return self._child_items(xpath, as_list=True)
 
     def raceCode(self):
         xpath = "//n:patient/n:raceCode"
@@ -95,9 +105,9 @@ class SimpleParser(object):
         xpath = "//n:rr/n:condition/n:displayName/text()"
         return self._value_if_found(xpath)
 
-    def doc_id(self):
-        xpath = "//n:docID/n:root/text()"
-        return self._value_if_found(xpath)
+    def docID(self):
+        xpath = "//n:docID"
+        return self._child_items(xpath)
 
     def date_of_report(self):
         xpath = "//n:effectiveTime/n:value/text()"
@@ -110,6 +120,10 @@ class SimpleParser(object):
             "//n:encompassingEncounter/n:provider/n:name/n:family/text()")
         if lname and not lname.startswith('null'):
             return ', '.join((lname, fname))
+
+    def providerID(self):
+        return self._child_items(
+            "//n:encompassingEncounter/n:provider/n:providerID")
 
 
 class Patient(db.Model):

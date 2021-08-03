@@ -69,8 +69,14 @@
     </address>
     <telecommunications>
       <telecom>
-        <use>tele:</use>
-        <value>206-123-4567</value>
+        <use>WP</use>
+        <value>tel:+1-206-123-4567</value>
+      </telecom>
+      <telecom>
+        <value>fax:+1-206-123-6789</value>
+      </telecom>
+      <telecom>
+        <value>email:example@who.com</value>
       </telecom>
     </telecommunications>
   </patient>
