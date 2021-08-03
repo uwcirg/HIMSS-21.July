@@ -63,7 +63,7 @@ new Vue({
             rrViewerLoaded: false,
             //display in discrete tab
             demoDataFields: [
-                "last_name", "first_name","birthdate", "gender", "race", "ethnicity", "phone", "provider"
+                "last_name", "first_name","birthdate", "gender", "race", "ethnicity", "phone", "email", "provider"
             ],
             //display in discrete tab
             discreteDataFields: [
@@ -149,7 +149,28 @@ new Vue({
                         //item["RRLink"] = "./data/RR.html";
                         item["birthdate"] = self.formatDate(item["birthdate"]);
                         item["date_of_report"] = self.formatDate(item["date_of_report"], true);
-                        item["phone"] = item["phone"] ? String(item["phone"]).replace("tel:", "") : "";
+                        item["race"] = item["raceCode"] ? item["raceCode"]["displayName"] : "";
+                        item["ethnicity"] = item["ethnicGroupCode"] ? item["ethnicGroupCode"]["displayName"]: "";
+                        if (item["telecom"]) {
+                            var values = item["telecom"].map(function(o) {
+                                return o["value"];
+                            });
+                            var phones = values.filter(function(val) {
+                                return val.indexOf("tel:") >= 0;
+                            });
+                            var emails = values.filter(function(val) {
+                                return val.indexOf("email:") >= 0;
+                            });
+                            item["phone"] = phones.map(function(val) {
+                                return  self.getTextAfterSemi(val);
+                            }).join("<br/>");
+                            item["email"] = emails.map(function(val) {
+                                return self.getTextAfterSemi(val);
+                            }).join("<br/>");
+                        } else {
+                            item["phone"] = "";
+                            item["email"] = "";
+                        }
                         return item;
                     });
                     self.expanded = responseObj.patients.map(function(item, index) {
@@ -224,7 +245,8 @@ new Vue({
         logout: function() {
             window.location = "https://keycloak.cirg.washington.edu/auth/realms/ECR-WA-Notify/protocol/openid-connect/logout?redirect_uri=https%3A%2F%2Fecr.wanotify.uw.edu%2Flogout";
         },
-        getDisplayText: function(key) {
+        //for display discrete field name
+        getDisplayTitle: function(key) {
             var matchedField = this.headers.filter(function(item) {
                 return String(item.value) === String(key);
             });
@@ -235,6 +257,11 @@ new Vue({
                 return String(key).replace(/_/g, " ");
             }
             return matchedField[0].text;
+        },
+        getTextAfterSemi: function(text) {
+            if (!text) return "";
+            if (text.indexOf(":") == -1) return text;
+            return text.replace(/^[\d\D]{1,}:/g, "");
         },
         sendRequest: function(url, params) {
             params = params || {};

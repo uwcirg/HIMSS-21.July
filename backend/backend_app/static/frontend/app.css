@@ -143,6 +143,10 @@ header {
 }
 .field-title {
     text-transform: capitalize;
+    margin-right: 4px;
+}
+.item-container {
+    display: flex;
 }
 .dob-filter-field {
     width: 100%;
