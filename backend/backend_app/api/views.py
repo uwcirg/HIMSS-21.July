@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response, redirect, session
+from flask import Blueprint, jsonify, make_response, redirect, render_template
 from os import getenv
 
 from ..db import db
@@ -14,9 +14,7 @@ def root():
 
 @base_blueprint.route('/logout')
 def logout():
-    session.clear()
-    resp = make_response(
-        'You are now logged out. <a href="/">Click here to log back in.</a>')
+    resp = make_response(render_template('logout.html'))
     resp.set_cookie('mod_auth_openidc_session', '', expires=0)
     return resp
 
