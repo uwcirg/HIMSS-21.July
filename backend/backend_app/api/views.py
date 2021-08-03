@@ -66,4 +66,4 @@ def rckms_codes():
 
 @base_blueprint.route('/REMOTE_USER')
 def remote_user():
-    return jsonify(REMOTE_USER=getenv('REMOTE_USER', None))
+    return jsonify(REMOTE_USER=getenv('X-REMOTE-USER', None))
