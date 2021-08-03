@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Logout</title>
+    <style>
+        .title {
+            margin-left: 40px;
+            margin-top: 40px;
+        }
+    </style>
+    <script>window.addEventListener('load', (event) => {
+        //5 second delay
+        setTimeout(() => {
+            window.location = "/";
+        }, 5000);
+      });</script>
 </head>
 <body>
-<p>You are now logged out. <a href="/">Click here to log back in.</a></p>
+    <h2 class="title">You have been logged out. Redirecting...</h2>
 </body>
 </html>
