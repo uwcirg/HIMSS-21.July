@@ -33,7 +33,11 @@ class SimpleParser(object):
                 tag = child.tag
                 close_namespace_index = tag.find('}')
                 tag = tag[close_namespace_index + 1:]
-                items[tag] = child.text
+                if len(child):
+                    # Should there be nested elements, recurse on down
+                    items[tag] = child_items(child)
+                else:
+                    items[tag] = child.text
             return items
 
         if as_list:
@@ -124,6 +128,14 @@ class SimpleParser(object):
     def providerID(self):
         return self._child_items(
             "//n:encompassingEncounter/n:provider/n:providerID")
+
+    def healthcareFacility(self):
+        return self._child_items(
+            "//n:encompassingEncounter/n:healthcareFacility/n:facility")
+
+    def healthcareOrganization(self):
+        return self._child_items(
+            "//n:encompassingEncounter/n:healthcareFacility/n:serviceProviderOrganization")
 
 
 class Patient(db.Model):

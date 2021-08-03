@@ -40,3 +40,5 @@ def test_parse_names(simple_xml):
     assert results['docID']['root'] == '1.2.840.114350.1.13.296.3.7.8.688883.176734'
     assert results['provider'] == 'Johnson, Jane'
     assert results['providerID']['root'] == '2.16.840.1.113883.4.6'
+    assert results['healthcareOrganization']['name'] == 'YOUR REGIONAL MEDICAL CENTER'
+    assert results['healthcareFacility']['address']['streetAddressLine'] == '123 MAIN BLVD'
