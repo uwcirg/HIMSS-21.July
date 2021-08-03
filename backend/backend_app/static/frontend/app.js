@@ -1,4 +1,5 @@
 //framework used, see here:  https://vuetifyjs.com/en/
+// data table component: see https://vuetifyjs.com/en/components/data-tables/ API: https://vuetifyjs.com/en/api/v-data-table/
 // app theme colors
 var appTheme = {
     themes: {
@@ -60,8 +61,6 @@ new Vue({
             loading: false,
             eicrViewerLoaded: false,
             rrViewerLoaded: false,
-            sortBy: 'date_of_report',
-            excludeFields: ["address", "city", "doc_id", "ethnicity", "id", "phone", "provider", "race", "state", "zip", "uuid", "EICRLink", "RRLink", "link"],
             //display in discrete tab
             demoDataFields: [
                 "last_name", "first_name","birthdate", "gender", "race", "ethnicity", "phone", "provider"
@@ -216,9 +215,6 @@ new Vue({
             this.$nextTick(function() {
                 self.activeItem = Object.assign({}, this.defaultItem);
             })
-        },
-        inExclusionFields: function(key) {
-            return key !== "View Reports" && this.excludeFields.indexOf(key) !== -1;
         },
         inHeaderList: function(key) {
             return this.headers.filter(function(item) {

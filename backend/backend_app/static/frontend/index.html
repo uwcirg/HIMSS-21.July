@@ -55,10 +55,13 @@
                 :items-per-page="-1"
                 :search="search"
                 class="elevation-1"
-                :sort-by.sync="sortBy"
                 :loading="loading"
                 loading-text="Loading... Please wait"
                 mobile-breakpoint="768"
+                :options="{
+                    sortBy: ['date_of_report'],
+                    sortDesc: [true]
+                }"
                 >
                     <template v-slot:item.link="{ item }">
                         <div class="buttons-container">
@@ -75,6 +78,7 @@
                         </div>
                     </template>
                     <template v-slot:body.prepend>
+                        <!-- filter row -->
                         <tr class="filter-row">
                             <td>
                                 <v-text-field
@@ -212,7 +216,8 @@
                                             :size="50"
                                             v-show="!eicrViewerLoaded"
                                             ></v-progress-circular>
-                                            <iframe :src="activeItem.EICRLink" @load="eicrViewerLoaded=true"></iframe>
+                                            <!-- iframe for eiCR report html -->
+                                            <iframe id="eicrViewerFrame" :src="activeItem.EICRLink" @load="eicrViewerLoaded=true"></iframe>
                                         </div>
                                       </v-card>
                                     </v-tab-item>
@@ -228,7 +233,8 @@
                                             :size="50"
                                             v-show="!rrViewerLoaded"
                                             ></v-progress-circular>
-                                            <iframe :src="activeItem.RRLink" @load="rrViewerLoaded=true"></iframe>
+                                            <!-- iframe for RR report html -->
+                                            <iframe id="rrViewerFrame" :src="activeItem.RRLink" @load="rrViewerLoaded=true"></iframe>
                                         </div>
                                       </v-card>
                                     </v-tab-item>
