@@ -168,7 +168,7 @@ new Vue({
                                 return val.indexOf("tel:") >= 0;
                             });
                             var emails = values.filter(function(val) {
-                                return val.indexOf("email:") >= 0;
+                                return val.indexOf("mailto:") >= 0;
                             });
                             item["phone"] = phones.map(function(val) {
                                 return  self.getTextAfterSemi(val);
