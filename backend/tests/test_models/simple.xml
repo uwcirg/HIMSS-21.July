@@ -41,10 +41,16 @@
       <displayName>Male</displayName>
     </administrativeGenderCode>
     <raceCode>
-      <nullFlavor>UNK</nullFlavor>
+      <code>2054-5</code>
+      <codeSystem>2.16.840.1.113883.6.238</codeSystem>
+      <codeSystemName>CDC Race and Ethnicity</codeSystemName>
+      <displayName>Black or African American</displayName>
     </raceCode>
     <ethnicGroupCode>
-      <nullFlavor>UNK</nullFlavor>
+      <code>2186-5</code>
+      <codeSystem>2.16.840.1.113883.6.238</codeSystem>
+      <codeSystemName>CDC Race and Ethnicity</codeSystemName>
+      <displayName>Not Hispanic or Latino</displayName>
     </ethnicGroupCode>
     <dateOfBirth>19990101</dateOfBirth>
     <deceasedInd>false</deceasedInd>
@@ -63,7 +69,14 @@
     </address>
     <telecommunications>
       <telecom>
-        <value>206-123-4567</value>
+        <use>WP</use>
+        <value>tel:+1-206-123-4567</value>
+      </telecom>
+      <telecom>
+        <value>fax:+1-206-123-6789</value>
+      </telecom>
+      <telecom>
+        <value>email:example@who.com</value>
       </telecom>
     </telecommunications>
   </patient>

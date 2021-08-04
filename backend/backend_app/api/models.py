@@ -21,6 +21,34 @@ class SimpleParser(object):
                 return found[0].get(attribute)
             return found[0]
 
+    def _child_items(self, xpath, as_list=False):
+        node = self.tree.xpath(xpath, namespaces=self.namespaces)
+        if not node:
+            return
+
+        def child_items(node):
+            items = {}
+            for child in node:
+                # strip namespace from tag
+                tag = child.tag
+                close_namespace_index = tag.find('}')
+                tag = tag[close_namespace_index + 1:]
+                if len(child):
+                    # Should there be nested elements, recurse on down
+                    items[tag] = child_items(child)
+                else:
+                    items[tag] = child.text
+            return items
+
+        if as_list:
+            results = []
+            for item in node:
+                results.append(child_items(item))
+        else:
+            results = child_items(node[0])
+
+        return results or None
+
     def address(self):
         xpath = "//n:patient/n:address/n:streetAddressLine/text()"
         return self._value_if_found(xpath)
@@ -37,19 +65,17 @@ class SimpleParser(object):
         xpath = "//n:patient/n:address/n:postalCode/text()"
         return self._value_if_found(xpath)
 
-    def phone(self):
-        xpath = "//n:patient/n:telecommunications/n:telecom/n:value/text()"
-        return self._value_if_found(xpath)
+    def telecom(self):
+        xpath = "//n:patient/n:telecommunications/n:telecom"
+        return self._child_items(xpath, as_list=True)
 
-    def race(self):
-        xpath = "//n:patient/n:raceCode/n:displayName/text()"
-        xpath_fallback = "//n:patient/n:raceCode/n:nullFlavor/text()"
-        return self._value_if_found(xpath) or self._value_if_found(xpath_fallback)
+    def raceCode(self):
+        xpath = "//n:patient/n:raceCode"
+        return self._child_items(xpath)
 
-    def ethnicity(self):
-        xpath = "//n:patient/n:ethnicGroupCode/n:displayName/text()"
-        xpath_fallback = "//n:patient/n:ethnicGroupCode/n:nullFlavor/text()"
-        return self._value_if_found(xpath) or self._value_if_found(xpath_fallback)
+    def ethnicGroupCode(self):
+        xpath = "//n:patient/n:ethnicGroupCode"
+        return self._child_items(xpath)
 
     def birthdate(self):
         xpath = "//n:patient/n:dateOfBirth/text()"
@@ -83,9 +109,9 @@ class SimpleParser(object):
         xpath = "//n:rr/n:condition/n:displayName/text()"
         return self._value_if_found(xpath)
 
-    def doc_id(self):
-        xpath = "//n:docID/n:root/text()"
-        return self._value_if_found(xpath)
+    def docID(self):
+        xpath = "//n:docID"
+        return self._child_items(xpath)
 
     def date_of_report(self):
         xpath = "//n:effectiveTime/n:value/text()"
@@ -98,6 +124,18 @@ class SimpleParser(object):
             "//n:encompassingEncounter/n:provider/n:name/n:family/text()")
         if lname and not lname.startswith('null'):
             return ', '.join((lname, fname))
+
+    def providerID(self):
+        return self._child_items(
+            "//n:encompassingEncounter/n:provider/n:providerID")
+
+    def healthcareFacility(self):
+        return self._child_items(
+            "//n:encompassingEncounter/n:healthcareFacility/n:facility")
+
+    def healthcareOrganization(self):
+        return self._child_items(
+            "//n:encompassingEncounter/n:healthcareFacility/n:serviceProviderOrganization")
 
 
 class Patient(db.Model):
