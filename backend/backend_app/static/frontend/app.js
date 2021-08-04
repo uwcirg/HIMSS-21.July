@@ -63,12 +63,21 @@ new Vue({
             rrViewerLoaded: false,
             //display in discrete tab
             demoDataFields: [
-                "last_name", "first_name","birthdate", "gender", "race", "ethnicity", "phone", "email", "provider"
+                "last_name", "first_name","birthdate", "gender", "race", "ethnicity", "phone", "email", "provider", "providerID", "healthcareOrganization", "facilityName", "location"
             ],
             //display in discrete tab
             discreteDataFields: [
                 "date_of_report", "reportable_condition", "reason_for_report"
             ],
+            displayNameMappings: {
+                "date_of_report" : "Date Reported",
+                "reason_for_report" : "Condition (Full Description)",
+                "healthcareOrganization": "Health Care Organization",
+                "facilityName" : "Facility Name",
+                "location" : "Location",
+                "reportable_condition" : "Condition",
+                "providerID": "Provider ID"
+            },
             headers: [
                 {
                     "text": "Date Reported",
@@ -171,6 +180,12 @@ new Vue({
                             item["phone"] = "";
                             item["email"] = "";
                         }
+                        item["providerID"] = item["providerID"] ? item["providerID"]["root"]: "";
+                        item["healthcareOrganization"] = item["healthcareOrganization"] ? item["healthcareOrganization"]["name"]: "";
+                        item["facilityName"] = item["healthcareFacility"]? item["healthcareFacility"]["name"]: "";
+                        item["location"] = item["healthcareFacility"] && item["healthcareFacility"]["address"] ? (
+                            item["healthcareFacility"]["address"]["streetAddressLine"] + " " + item["healthcareFacility"]["address"]["city"] + " " + item["healthcareFacility"]["address"]["state"] + " " + item["healthcareFacility"]["address"]["postalCode"]
+                        ) : "";
                         return item;
                     });
                     self.expanded = responseObj.patients.map(function(item, index) {
@@ -251,9 +266,7 @@ new Vue({
                 return String(item.value) === String(key);
             });
             if (!matchedField.length) {
-                if (key === "date_of_report") return "Date Reported";
-                if (key === "reason_for_report") return "Condition (Full Description)";
-                if (key === "reportable_condition") return "Condition";
+                if (this.displayNameMappings[key]) return this.displayNameMappings[key];
                 return String(key).replace(/_/g, " ");
             }
             return matchedField[0].text;
