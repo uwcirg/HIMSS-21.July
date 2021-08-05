@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response, redirect, render_template
+from flask import Blueprint, abort, jsonify, make_response, redirect, render_template
 from os import getenv
 
 from ..db import db
@@ -34,6 +34,18 @@ def patient_list():
     for p in Patient.query.all():
         patients.append(p.json())
     return {'patients': patients}
+
+
+@base_blueprint.route('/Patient/<patient_id>', methods=['DELETE'])
+def patient_delete(patient_id):
+    patient = Patient.query.get(patient_id)
+    if not patient:
+        abort(404)
+
+    db.session.delete(patient)
+    db.session.commit()
+
+    return {'deleted patient: ': patient_id}
 
 
 @base_blueprint.route('/Patient/raw')
