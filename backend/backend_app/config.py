@@ -4,6 +4,7 @@ Use env var to override
 """
 import os
 
+DELETE_CONTROLS = os.getenv("DELETE_CONTROLS", 'hide')
 SERVER_NAME = os.getenv("SERVER_NAME")
 SECRET_KEY = os.getenv("SECRET_KEY")
 # URL scheme to use outside of request context

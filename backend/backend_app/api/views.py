@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, jsonify, make_response, redirect, render_template
+from flask import Blueprint, abort, current_app, jsonify, make_response, redirect, render_template
 from os import getenv
 
 from ..db import db
@@ -82,4 +82,4 @@ def remote_user():
 @base_blueprint.route('/api/settings')
 def settings():
     # for now, just return the one(s) the front end needs
-    return {'DELETE_CONTROLS': 'show'}
+    return {'DELETE_CONTROLS': current_app.config['DELETE_CONTROLS']}
