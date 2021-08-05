@@ -77,3 +77,9 @@ def rckms_codes():
 @base_blueprint.route('/REMOTE_USER')
 def remote_user():
     return jsonify(REMOTE_USER=getenv('X-REMOTE-USER', None))
+
+
+@base_blueprint.route('/api/settings')
+def settings():
+    # for now, just return the one(s) the front end needs
+    return {'DELETE_CONTROLS': 'show'}
