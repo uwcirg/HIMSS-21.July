@@ -36,7 +36,7 @@ def patient_list():
     return {'patients': patients}
 
 
-@base_blueprint.route('/Patient/<patient_id>', methods=['DELETE'])
+@base_blueprint.route('/Patient/<int:patient_id>', methods=['DELETE'])
 def patient_delete(patient_id):
     patient = Patient.query.get(patient_id)
     if not patient:
