@@ -170,65 +170,67 @@ new Vue({
             //self.initialized = true;
         });
         self.sendRequest(self.apiURL).then(function(response) {
-            if (response) {
-                var responseObj = JSON.parse(response);
-                if (responseObj.patients) {
-                    self.results = responseObj.patients;
-                    self.results = responseObj.patients.map(function(item) {
-                        item["link"] = "";
-                        item["EICRLink"] = API_BASE_URL+"/static/"+item.uuid+"_eICR.html";
-                        item["RRLink"] = API_BASE_URL+"/static/"+item.uuid+"_RR.html";
-                        //mock data testing
-                        //item["EICRLink"] = "./data/eICR.html";
-                        //item["RRLink"] = "./data/RR.html";
-                        item["birthdate"] = self.formatDate(item["birthdate"]);
-                        item["date_of_report"] = self.formatDate(item["date_of_report"], true);
-                        item["race"] = item["raceCode"] ? item["raceCode"]["displayName"] : "";
-                        item["ethnicity"] = item["ethnicGroupCode"] ? item["ethnicGroupCode"]["displayName"]: "";
-                        if (item["telecom"]) {
-                            var values = item["telecom"].map(function(o) {
-                                return o["value"];
-                            });
-                            var phones = values.filter(function(val) {
-                                return val.indexOf("tel:") >= 0;
-                            });
-                            var emails = values.filter(function(val) {
-                                return val.indexOf("mailto:") >= 0;
-                            });
-                            item["phone"] = phones.map(function(val) {
-                                return  self.getTextAfterSemi(val);
-                            }).join("<br/>");
-                            item["email"] = emails.map(function(val) {
-                                return self.getTextAfterSemi(val);
-                            }).join("<br/>");
-                        } else {
-                            item["phone"] = "";
-                            item["email"] = "";
-                        }
-                        item["providerID"] = item["providerID"] ? item["providerID"]["root"]: "";
-                        item["healthcareOrganization"] = item["healthcareOrganization"] ? item["healthcareOrganization"]["name"]: "";
-                        item["facilityName"] = item["healthcareFacility"]? item["healthcareFacility"]["name"]: "";
-                        item["location"] = item["healthcareFacility"] && item["healthcareFacility"]["address"] ? (
-                            item["healthcareFacility"]["address"]["streetAddressLine"] + " " + item["healthcareFacility"]["address"]["city"] + " " + item["healthcareFacility"]["address"]["state"] + " " + item["healthcareFacility"]["address"]["postalCode"]
-                        ) : "";
-                        return item;
-                    });
-                    self.expanded = responseObj.patients.map(function(item, index) {
-                        return item;
-                    })
-                }
-                if (!self.results || !self.results.length) {
-                    self.setError("No data returned from the server.");
-                    self.initialized = true;
-                }
-                setTimeout(function(){
-                    self.initialized = true;
-                }.bind(self), 150);
-            }).catch(function(e) {
+            if (!response) {
                 self.initialized = true;
-                self.setError("Unable to display data. see console for detail. " + (e.status && e.statusText ? (e.status + " " + e.statusText): e));
-                console.log("api error ", e)
-            });
+                self.setError("No data returned");
+            }
+            var responseObj = JSON.parse(response);
+            if (responseObj.patients) {
+                self.results = responseObj.patients;
+                self.results = responseObj.patients.map(function(item) {
+                    item["link"] = "";
+                    item["EICRLink"] = API_BASE_URL+"/static/"+item.uuid+"_eICR.html";
+                    item["RRLink"] = API_BASE_URL+"/static/"+item.uuid+"_RR.html";
+                    //mock data testing
+                    //item["EICRLink"] = "./data/eICR.html";
+                    //item["RRLink"] = "./data/RR.html";
+                    item["birthdate"] = self.formatDate(item["birthdate"]);
+                    item["date_of_report"] = self.formatDate(item["date_of_report"], true);
+                    item["race"] = item["raceCode"] ? item["raceCode"]["displayName"] : "";
+                    item["ethnicity"] = item["ethnicGroupCode"] ? item["ethnicGroupCode"]["displayName"]: "";
+                    if (item["telecom"]) {
+                        var values = item["telecom"].map(function(o) {
+                            return o["value"];
+                        });
+                        var phones = values.filter(function(val) {
+                            return val.indexOf("tel:") >= 0;
+                        });
+                        var emails = values.filter(function(val) {
+                            return val.indexOf("mailto:") >= 0;
+                        });
+                        item["phone"] = phones.map(function(val) {
+                            return  self.getTextAfterSemi(val);
+                        }).join("<br/>");
+                        item["email"] = emails.map(function(val) {
+                            return self.getTextAfterSemi(val);
+                        }).join("<br/>");
+                    } else {
+                        item["phone"] = "";
+                        item["email"] = "";
+                    }
+                    item["providerID"] = item["providerID"] ? item["providerID"]["root"]: "";
+                    item["healthcareOrganization"] = item["healthcareOrganization"] ? item["healthcareOrganization"]["name"]: "";
+                    item["facilityName"] = item["healthcareFacility"]? item["healthcareFacility"]["name"]: "";
+                    item["location"] = item["healthcareFacility"] && item["healthcareFacility"]["address"] ? (
+                        item["healthcareFacility"]["address"]["streetAddressLine"] + " " + item["healthcareFacility"]["address"]["city"] + " " + item["healthcareFacility"]["address"]["state"] + " " + item["healthcareFacility"]["address"]["postalCode"]
+                    ) : "";
+                    return item;
+                });
+                self.expanded = responseObj.patients.map(function(item, index) {
+                    return item;
+                })
+            }
+            if (!self.results || !self.results.length) {
+                self.setError("No data returned from the server.");
+                self.initialized = true;
+            }
+            setTimeout(function(){
+                self.initialized = true;
+            }.bind(self), 150);
+        }).catch(function(e) {
+            self.initialized = true;
+            self.setError("Unable to display data. see console for detail. " + (e.status && e.statusText ? (e.status + " " + e.statusText): e));
+            console.log("api error ", e)
         });
     },
     methods: {
