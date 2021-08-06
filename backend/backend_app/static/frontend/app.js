@@ -144,7 +144,15 @@ new Vue({
     mounted: function() {
         this.setUserInfo();
         var self = this;
-        self.sendRequest(this.apiURL).then(function(response) {
+        self.sendRequest(this.settingsURL).then(function(response) {
+            var settingResponse = JSON.parse(response);
+            //determine whether to hide/show the delete buttons
+            self.allowDelete = settingResponse ? settingResponse.DELETE_CONTROLS == "show" : false;
+        }).catch(function(e) {
+            console.log("Unable to get setting data ", e)
+            //self.initialized = true;
+        });
+        self.sendRequest(self.apiURL).then(function(response) {
             if (response) {
                 var responseObj = JSON.parse(response);
                 if (responseObj.patients) {
