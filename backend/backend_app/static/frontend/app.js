@@ -22,16 +22,29 @@ new Vue({
   data: function() {
     return {
             apiURL: API_BASE_URL + "/Patient",
+            settingsURL: API_BASE_URL + "/api/settings",
+            //settingsURL: "./data/settings.json", //mock data
             userinfoURL: API_BASE_URL + "/REMOTE_USER",
             //userinfoURL: "./data/REMOTE_USER.json", mock data
             //apiURL: "./data/data.json", //for mock data
             initialized: false,
+            allowDelete: true,
             alert: false,
             dialog: false,
+            dialogDelete: false,
             expanded: [],
             tab: "tab_eicr",
             loggedInUser: "",
             activeItem: {
+                first_name: "",
+                last_name: "",
+                birthdate: "",
+                reason_for_report: "",
+                reportable_condition: "",
+                EICRLink: "",
+                RRLink: ""
+            },
+            editedItem: {
                 first_name: "",
                 last_name: "",
                 birthdate: "",
@@ -49,6 +62,7 @@ new Vue({
                 EICRLink: "",
                 RRLink: ""
             },
+            editedIndex: -1,
             search: '',
             date_of_report: "",
             first_name: "",
@@ -139,7 +153,10 @@ new Vue({
     watch: {
         dialog (val) {
           val || this.closeDialog()
-        }
+        },
+        dialogDelete (val) {
+            val || this.closeDelete()
+        },
     },
     mounted: function() {
         this.setUserInfo();
@@ -200,19 +217,18 @@ new Vue({
                         return item;
                     })
                 }
-                //console.log("self.results ", self.results)
-            }
-            if (!self.results || !self.results.length) {
-                self.setError("No data returned from the server.");
+                if (!self.results || !self.results.length) {
+                    self.setError("No data returned from the server.");
+                    self.initialized = true;
+                }
+                setTimeout(function(){
+                    self.initialized = true;
+                }.bind(self), 150);
+            }).catch(function(e) {
                 self.initialized = true;
-            }
-            setTimeout(function(){
-                self.initialized = true;
-            }.bind(self), 150);
-        }).catch(function(e) {
-            self.initialized = true;
-            self.setError("Unable to display data. see console for detail. " + (e.status && e.statusText ? (e.status + " " + e.statusText): e));
-            console.log("api error ", e)
+                self.setError("Unable to display data. see console for detail. " + (e.status && e.statusText ? (e.status + " " + e.statusText): e));
+                console.log("api error ", e)
+            });
         });
     },
     methods: {
@@ -260,6 +276,27 @@ new Vue({
                 self.activeItem = Object.assign({}, this.defaultItem);
             })
         },
+        deleteItem: function(item) {
+            this.editedIndex = this.results.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+            this.dialogDelete = true
+        },
+        deleteItemConfirm: function() {
+            var self = this;
+            this.sendRequest("/Patient/"+this.editedItem.id, {action: "DELETE"}).then(function() {
+                self.results.splice(self.editedIndex, 1);
+                self.closeDelete()
+            }).catch(function(e) {
+                self.closeDelete()
+            });
+        },
+        closeDelete: function() {
+            this.dialogDelete = false;
+            this.editedItem = Object.assign({}, this.defaultItem);
+            this.$nextTick(() => {
+              this.editedIndex = -1
+            })
+        },
         inHeaderList: function(key) {
             return this.headers.filter(function(item) {
                 return !item.complexType && String(item.value) === String(key);
@@ -290,7 +327,7 @@ new Vue({
             return new Promise(function(resolve, reject) {
               // Do the usual XHR stuff
               var req = new XMLHttpRequest();
-              req.open('GET', url);
+              req.open(params.action || 'GET', url);
               req.onload = function() {
                 // This is called even on 404 etc
                 // so check the status
