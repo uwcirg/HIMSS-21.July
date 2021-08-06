@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response, redirect, render_template
+from flask import Blueprint, abort, current_app, jsonify, make_response, redirect, render_template
 from os import getenv
 
 from ..db import db
@@ -22,10 +22,12 @@ def logout():
 @base_blueprint.route('/init-db')
 def init_db():
     from ..code_systems.load_table import load_rckms_condition_codes
-    db.drop_all()
-    db.create_all()
-    load_rckms_condition_codes()
-    return {'ok': True}
+    if current_app.config.get('ENABLE_DB_PURGE', None):
+        db.drop_all()
+        db.create_all()
+        load_rckms_condition_codes()
+        return {'ok': True}
+    return {'error': "ENABLE_DB_PURGE not set -- REFUSED!"}
 
 
 @base_blueprint.route('/Patient')
@@ -34,6 +36,18 @@ def patient_list():
     for p in Patient.query.all():
         patients.append(p.json())
     return {'patients': patients}
+
+
+@base_blueprint.route('/Patient/<int:patient_id>', methods=['DELETE'])
+def patient_delete(patient_id):
+    patient = Patient.query.get(patient_id)
+    if not patient:
+        abort(404)
+
+    db.session.delete(patient)
+    db.session.commit()
+
+    return {'deleted patient: ': patient_id}
 
 
 @base_blueprint.route('/Patient/raw')
@@ -65,3 +79,9 @@ def rckms_codes():
 @base_blueprint.route('/REMOTE_USER')
 def remote_user():
     return jsonify(REMOTE_USER=getenv('X-REMOTE-USER', None))
+
+
+@base_blueprint.route('/api/settings')
+def settings():
+    # for now, just return the one(s) the front end needs
+    return {'DELETE_CONTROLS': current_app.config['DELETE_CONTROLS']}
