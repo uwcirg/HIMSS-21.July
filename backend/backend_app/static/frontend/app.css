@@ -130,7 +130,7 @@ header {
     background-color: #fcfbfd;
 }
 #patientList tr:not(.filter-row) .v-icon.v-icon.v-icon--link {
-    border: 1px solid #d3cddf;
+    /* border: 1px solid #d3cddf; */
     border-radius: 100%;
 }
 .collapsible-cell .subtitle {
