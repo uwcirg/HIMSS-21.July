@@ -5,6 +5,7 @@ Use env var to override
 import os
 
 DELETE_CONTROLS = os.getenv("DELETE_CONTROLS", 'hide')
+ENABLE_DB_PURGE = os.getenv("ENABLE_DB_PURGE", None)
 SERVER_NAME = os.getenv("SERVER_NAME")
 SECRET_KEY = os.getenv("SECRET_KEY")
 # URL scheme to use outside of request context

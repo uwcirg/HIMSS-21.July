@@ -22,10 +22,12 @@ def logout():
 @base_blueprint.route('/init-db')
 def init_db():
     from ..code_systems.load_table import load_rckms_condition_codes
-    db.drop_all()
-    db.create_all()
-    load_rckms_condition_codes()
-    return {'ok': True}
+    if current_app.config.get('ENABLE_DB_PURGE', None):
+        db.drop_all()
+        db.create_all()
+        load_rckms_condition_codes()
+        return {'ok': True}
+    return {'error': "ENABLE_DB_PURGE not set -- REFUSED!"}
 
 
 @base_blueprint.route('/Patient')
